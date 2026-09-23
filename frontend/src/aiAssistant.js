@@ -107,145 +107,91 @@ export function initAIAssistant() {
  */
 const KNOWLEDGE_BASE = {
     services: {
-        title: "Comprehensive  & Engineering Services",
-        content: `At **OM Innoventures & Build AI technologies**, we provide end-to-end built-environment services from concept to handover:
+        title: "AI, Software & Data Intelligence Services",
+        content: `At **OM Innoventures & Build AI technologies**, we provide end-to-end digital and AI solutions from concept to deployment:
 
-1. 🏛️ **Architectural Design**: Creative, functional, aesthetic & sustainable building layouts.
-2. 📐 **Architectural 2D Plans**: Technical working drawings, Vaastu compliant layouts & authority approval blueprints.
-3. 🏗️ **Structural Design**: High-integrity reinforced concrete and steel designs, seismic/earthquake resistant, wind load engineered per IS/international codes.
-4. 📊 **Project Planning & Management**: Rigorous scheduling, critical path tracking, milestone controls, and quality audits.
-5. 🛋️ **Interior Design**: Space planning, luxury modern finishes, lighting, ergonomics, and 3D interior renders.
-6. 🔬 **Geotechnical Soil Investigation**: Standard penetration tests, borehole drilling, soil bearing capacity (SBC) reports & foundation depth calculations.
-7. ⚡ **MEP Design**: Complete Mechanical, Electrical, Plumbing, HVAC & Firefighting system layouts.
-8. 🏢 **3D Building Design**: Full 3D BIM spatial models with precise material specifications.
-9. 🎨 **Realistic 3D Rendering**: Ultra-high-definition photorealistic day/dusk visual presentations and architectural walk-throughs.
-10. 💰 **Quantity Estimation & Costing**: Item-wise BOQ (Bill of Quantities), material take-offs, and transparent budgeting to eliminate cost overruns.
+1. 🌐 **Full Stack Web & Mobile Development**: High-performance React, Next.js, Node.js, and FastAPI platforms.
+2. 🤖 **Generative AI & Custom LLM Agents**: RAG pipelines, intelligent customer support bots, and autonomous AI agents.
+3. 🧠 **Machine Learning & Predictive Modeling**: Custom ML algorithms, churn prediction, classification, and forecasting.
+4. 📊 **Power BI & Business Intelligence**: Interactive executive dashboards, DAX modeling, and automated KPI reports.
+5. 🧹 **Excel & Data Automation**: Data cleaning, advanced financial modeling, and automated VBA/Python ETL pipelines.
+6. ☁️ **Cloud Architecture & MLOps**: Scalable microservices, Docker, Kubernetes, and automated CI/CD deployment on AWS/GCP.
+7. 🔒 **Cybersecurity & Data Governance**: Enterprise-grade access control, encryption, and vulnerability management.
+8. 💼 **Accounting & Auditing Software Solutions**: Automated ledger bookkeeping, compliance, and financial reporting systems.
 
-Would you like details on a specific service or an instant estimation?`,
+Would you like details on a specific service or an instant consultation?`,
         actions: [
-            { text: "📐 Estimate Project Cost", query: "estimator" },
-            { text: "🏢 Structural & Soil Safety", query: "structural" },
+            { text: "🤖 Explore AI & ML", query: "tech" },
+            { text: "🌐 Web Development", query: "services" },
             { text: "📞 Book Free Consultation", query: "contact" }
         ]
     },
 
-    structural: {
-        title: "Structural Engineering & Geotechnical Safety",
-        content: `**Safety & Durability are our core engineering principles.**
-
-- **Structural Engineering**:
-  - Seismic-resistant ductile detailing (IS 1893 & IS 13920 compliant).
-  - High-rise RCC framed structures, post-tensioned slabs, and pre-engineered steel buildings (PEB).
-  - Advanced computational finite element analysis (FEA) to withstand extreme seismic and wind shear forces.
-
-- **Geotechnical Soil Investigation**:
-  - Standard Penetration Test (SPT), borehole sampling & core logging.
-  - Safe Bearing Capacity (SBC) determination to prevent differential settlement or foundation failure.
-  - Custom foundation design recommendations (Isolated footings, Raft/Mat, or Deep Pile foundations).
-
-Would you like to schedule a site soil test or structural assessment?`,
-        actions: [
-            { text: "📞 Request Site Assessment", query: "contact" },
-            { text: "📐 Architectural 2D Plans", query: "architectural" },
-            { text: "🏗️ View All Services", query: "services" }
-        ]
-    },
-
-    architectural: {
-        title: "Architectural Design & 2D Working Plans",
-        content: `Our architectural team crafts spaces that harmonize aesthetics, functional circulation, and regulatory compliance:
-
-- **Vaastu Compliant Planning**: Aligning entrances, kitchens, master bedrooms, and staircases according to traditional principles without compromising modern functionality.
-- **Authority Approvals & Sanction Drawings**: Layouts drafted to local municipal bylaws and building codes.
-- **Comprehensive Working Drawings**: Detailed sectional elevations, dimensioned structural grids, door/window schedules, and electrical conduit routing.
-- **3D Elevations & Walkthroughs**: Visualize your residential villa, commercial complex, or industrial warehouse in high fidelity before laying the first brick.`,
-        actions: [
-            { text: "📐 Run Cost Estimator", query: "estimator" },
-            { text: "🎨 3D Rendering Info", query: "rendering" },
-            { text: "📞 Contact an Architect", query: "contact" }
-        ]
-    },
-
-    rendering: {
-        title: "3D Building Design & Photorealistic Rendering",
-        content: `Bring your architectural visions to life before  begins!
-
-- **3D Exterior Elevations**: Modern contemporary, neo-classical, minimalist, or industrial facade designs with accurate lighting, textures, and landscape.
-- **Interior 3D Visualization**: Virtual walkthroughs of living spaces, executive cabins, lobbies, and master bedrooms.
-- **BIM Modeling**: Integrated 3D models coordinating architecture, structural elements, and MEP services to detect clashes early.`,
-        actions: [
-            { text: "🏗️ All 10 Services", query: "services" },
-            { text: "📞 Request 3D Renders", query: "contact" }
-        ]
-    },
-
     tech: {
-        title: "Technology Capabilities & AI in Engineering",
-        content: `OM Innoventures & Build AI technologies combines traditional civil engineering with state-of-the-art computational intelligence:
+        title: "Technology Capabilities & AI Engineering",
+        content: `OM Innoventures combines cutting-edge computational intelligence with robust software engineering:
 
-- 🤖 **Gen AI & LLM**: Custom AI agents for automated plan verification, regulatory compliance checking, and project data RAG pipelines.
-- 🧠 **Machine Learning**: Predictive scheduling, cost risk modeling, and concrete curing estimation using Scikit-Learn, PyTorch & TensorFlow.
-- ☁️ **Cloud & DevOps**: Scalable infrastructure on AWS, Azure & GCP with Docker & Kubernetes for real-time site telemetry.
-- 📱 **Modern Web & Mobile**: High-performance digital portals in React, Next.js, Node.js, and Flutter for client tracking and real-time site logs.
-- 🗄️ **Databases**: Vector databases for blueprint search, PostgreSQL, MySQL & MongoDB.`,
+- 🤖 **Gen AI & LLMs**: Custom AI agents, contextual RAG search, OpenAI/Claude/Gemini API integrations, and fine-tuning.
+- 🧠 **Machine Learning**: Deep learning neural networks, computer vision, NLP, PyTorch & TensorFlow pipelines.
+- ☁️ **Cloud & MLOps**: Scalable serverless backends on AWS, GCP & Azure with automated model monitoring.
+- 📱 **Modern Full Stack**: High-throughput REST & GraphQL APIs in Python FastAPI/Node.js with reactive React/Next.js frontends.
+- 🗄️ **Data & Vector DBs**: Vector databases (Pinecone, ChromaDB, pgvector) alongside PostgreSQL, MySQL & Redis.`,
         actions: [
-            { text: "🏗️ Explore  Services", query: "services" },
+            { text: "🚀 Explore All Services", query: "services" },
             { text: "📞 Discuss Tech Partnerships", query: "contact" }
         ]
     },
 
     industries: {
         title: "Industries We Serve",
-        content: `We engineer solutions across both built environments and technological domains:
+        content: `We build intelligent digital solutions across key modern industries:
 
-- ** & Real Estate**: Luxury villas, multi-storey apartments, gated communities & commercial complexes.
-- **Industrial & Manufacturing**: Pre-engineered buildings (PEB), heavy manufacturing plants, and warehousing facilities.
-- **Smart Mobility & Infrastructure**: Smart city transit hubs, road networks, and structural assets.
-- **Healthcare, Education & Corporate**: Specialized hospital facilities, educational campuses, and corporate headquarters.`,
+- 🏥 **Healthcare & Life Sciences**: Clinical predictive analytics, HIPAA-compliant patient management, and AI diagnostics.
+- 💳 **Finance, Banking & Fintech**: Algorithmic risk models, fraud detection, and automated accounting workflows.
+- 🛍️ **E-Commerce & Retail**: Recommendation engines, dynamic pricing, inventory optimization, and full storefronts.
+- 🏭 **Manufacturing & Logistics**: Supply chain analytics, predictive maintenance, and IoT fleet tracking.
+- 🎓 **Education & EdTech**: Adaptive AI tutoring, student analytics, and institutional LMS portals.
+- 🛡️ **Cybersecurity & Public Sector**: Threat detection, compliance audit systems, and automated data workflows.`,
         actions: [
-            { text: "📐 Estimate Project Cost", query: "estimator" },
+            { text: "🚀 Explore Services", query: "services" },
             { text: "📞 Talk to Us", query: "contact" }
         ]
     },
 
     estimator: {
-        title: "Interactive  Cost & Timeline Estimator",
-        content: `To help you plan your project, here are standard indicative metrics for turnkey architectural, structural, and  execution:
+        title: "Project Scope & Investment Estimator",
+        content: `To help you plan your initiative, here are standard indicative investment tiers for our services:
 
-🏢 **Residential Buildings (Villas & Apartments)**:
-- Planning & Structural Design: ~₹25 - ₹50 per sq. ft.
-- Standard  (Structure + Basic Finishes): ~₹1,700 - ₹2,100 per sq. ft.
-- Premium Luxury : ~₹2,200 - ₹3,000+ per sq. ft.
-- Typical Timeline: 6 - 14 months depending on plot size & floors.
+🌐 **Web & Full Stack Platforms**:
+- Landing Pages & Business Websites: Starting ₹9,999 - ₹24,999
+- Advanced E-Commerce & Web Applications: Starting ₹49,999 - ₹1,49,999+
 
-🏭 **Commercial & Pre-Engineered Steel (PEB)**:
-- Turnkey Execution: ~₹1,400 - ₹2,200 per sq. ft.
-- Fast-track PEB Timeline: 4 - 8 months.
+🤖 **AI, Machine Learning & Analytics**:
+- Excel Data Cleaning & Power BI Dashboards: Starting ₹4,999 - ₹14,999
+- Custom ML Models & AI Agent Deployment: Starting ₹49,999 - ₹1,99,999+
 
-*Note: Soil bearing capacity, structural loads, and custom finishes affect the exact estimate.*
-
-Would you like a customized, itemized BOQ estimate for your specific plot and built-up area?`,
+Would you like a customized scope and milestone estimate tailored to your exact project requirements?`,
         actions: [
             { text: "🚀 Submit Project Enquiry", action: "scrollToCta" },
             { text: "📞 Contact Engineering Team", query: "contact" },
-            { text: "🏗️ View Services", query: "services" }
+            { text: "🌐 View Services", query: "services" }
         ]
     },
 
     contact: {
-        title: "Get in Touch with OM Innoventures & Build AI technologies",
-        content: `We'd love to help you build your project!
+        title: "Get in Touch with OM Innoventures",
+        content: `We'd love to help you build your digital and AI solutions!
 
-- 📍 **Consultation Office**: OM Innoventures & Build AI technologies
-- 📞 **Direct Contact**: Reach out via phone or email to discuss blueprints & site visits
-- 💬 **Fast Turnaround**: Comprehensive quotation within 24-48 hours
-- 📋 **Services**: Architectural Design, Structural Engineering, Geotechnical Soil Investigation, 3D Elevation, Cost Estimation & Turnkey Execution.
+- 📍 **Headquarters**: OM Innoventures & Build AI technologies
+- 📞 **Direct Contact**: Reach out via phone or email to discuss project architecture
+- 💬 **Fast Turnaround**: Comprehensive quotation and timeline within 24-48 hours
+- 📋 **Specialties**: Full Stack Development, AI Solutions, Machine Learning, Data Analytics & Power BI.
 
-You can also submit your details directly using the contact section below.`,
+You can also submit your details directly using the contact form below.`,
         actions: [
             { text: "🚀 Go to Contact Section", action: "scrollToCta" },
-            { text: "📐 Try Cost Estimator", query: "estimator" },
-            { text: "🏗️ Explore Services", query: "services" }
+            { text: "📐 Project Estimator", query: "estimator" },
+            { text: "🌐 Explore Services", query: "services" }
         ]
     }
 };
@@ -285,16 +231,30 @@ function resolveQuery(input) {
     }
 
     // Smart compound match
-    if (text.includes('mep') || text.includes('plumbing') || text.includes('electrical')) {
+    if (text.includes('data') || text.includes('analytics') || text.includes('power bi') || text.includes('dashboard') || text.includes('excel') || text.includes('report')) {
         return {
-            title: "MEP (Mechanical, Electrical & Plumbing) Design",
-            content: `Our **MEP engineering division** ensures your building operates with peak energy efficiency and safety:
-- **Electrical Design**: Load calculations, transformer sizing, DG backup, single-line diagrams (SLD), lighting automation & lightning protection.
-- **Plumbing & Sanitation**: Water supply loops, STP/sewage piping, rainwater harvesting systems, and pressure pumping designs.
-- **HVAC & Fire Safety**: Heat load analysis, central ducting, sprinkler grids & smoke evacuation compliant with National Building Code (NBC).`,
+            title: "Data Analytics & Business Intelligence",
+            content: `Our **Data Analytics & BI division** transforms raw records into actionable executive intelligence:
+- **Power BI & Dashboards**: Interactive executive dashboards with live multi-source sync and custom DAX metrics.
+- **Excel Automation & ETL**: Cleaning messy spreadsheets, automated reconciliation macros, and Python pipelines.
+- **SQL & Data Warehousing**: High-speed schema design, complex query optimization, and automated reporting.`,
             actions: [
-                { text: "🏗️ All 10 Services", query: "services" },
-                { text: "📞 Inquire about MEP", query: "contact" }
+                { text: "📊 Explore Analytics Services", query: "services" },
+                { text: "📞 Book Analytics Consultation", query: "contact" }
+            ]
+        };
+    }
+
+    if (text.includes('web') || text.includes('app') || text.includes('website') || text.includes('frontend') || text.includes('backend') || text.includes('full stack')) {
+        return {
+            title: "Full Stack & Web Development",
+            content: `We build modern, scalable, and responsive web platforms:
+- **High Conversion Websites**: Single-page and multi-page professional corporate portals.
+- **Full Stack Applications**: Reactive React/Next.js frontends with Python FastAPI and Node.js backends.
+- **E-Commerce Solutions**: Complete storefronts with secure payment gateway integrations.`,
+            actions: [
+                { text: "🌐 View Web Services", query: "services" },
+                { text: "📞 Start a Project", query: "contact" }
             ]
         };
     }
@@ -305,12 +265,12 @@ function resolveQuery(input) {
     if (phoneRegex.test(text) || emailRegex.test(text)) {
         return {
             title: "Inquiry Received! 🤝",
-            content: `Thank you for sharing your contact information. Our senior structural engineer & architectural consultant will review your request and reach out shortly to discuss your project requirements!
+            content: `Thank you for sharing your contact information. Our engineering and AI consultation team will review your request and reach out shortly to discuss your project requirements!
 
 In the meantime, feel free to explore our services or calculate indicative costs.`,
             actions: [
-                { text: "📐 Cost & Timeline Estimator", query: "estimator" },
-                { text: "🏗️ Explore Services", query: "services" }
+                { text: "📐 Scope & Cost Estimator", query: "estimator" },
+                { text: "🌐 Explore Services", query: "services" }
             ]
         };
     }
@@ -345,16 +305,15 @@ function setupAIAssistantEvents(atlasAvatarPath) {
         messagesEl.innerHTML = '';
         addBotMessage({
             title: "",
-            content: `Hello! I am Atlas, your Virtual Engineering Consultant for OM Innoventures & Build AI technologies.
+            content: `Hello! I am Atlas, your Virtual AI & Engineering Consultant for OM Innoventures & Build AI technologies.
 
-I can guide you through our **10 core built-environment services**, calculate an **indicative project cost & timeline estimate**, or help you book a **free site consultation**.
+I can guide you through our **AI, Machine Learning, Full Stack & Data Intelligence services**, calculate an **indicative project scope & investment estimate**, or help you book a **free architectural consultation**.
 
 Choose a topic below or type any question!`,
             actions: [
-                { text: "🏗️ Our 10 Services", query: "services" },
-                { text: "📐 Cost & Timeline Estimator", query: "estimator" },
-                { text: "🏢 Structural & Soil Safety", query: "structural" },
-                { text: "🤖 AI & Tech Capabilities", query: "tech" },
+                { text: "🌐 All Services", query: "services" },
+                { text: "🤖 AI & Machine Learning", query: "tech" },
+                { text: "📐 Scope & Investment Estimator", query: "estimator" },
                 { text: "📞 Book Free Consultation", query: "contact" }
             ]
         }, false);
@@ -471,15 +430,15 @@ Choose a topic below or type any question!`,
         } catch (err) {
             console.error('[ATLAS ASSISTANT ERROR]', err);
             removeTypingIndicator();
-            const fallbackMsg = "I'd be glad to assist with that! At **OM Innoventures & Build AI technologies**, we specialize in Architectural Design, Structural Engineering, Geotechnical Soil Reports, 3D Elevation, and Cost Estimation. Please submit your project details below to consult directly with our engineers.";
+            const fallbackMsg = "I'd be glad to assist with that! At **OM Innoventures & Build AI technologies**, we specialize in Full Stack Development, Custom AI & Machine Learning, Power BI Dashboards, and Enterprise Cloud Solutions. Please submit your project details below to consult directly with our engineers.";
             chatHistory.push({ role: 'assistant', content: fallbackMsg });
             addBotMessage({
-                title: "OM Engineering Consultation",
+                title: "OM Technology Consultation",
                 content: fallbackMsg,
                 actions: [
                     { text: "🚀 Submit Project Enquiry", action: "scrollToCta" },
-                    { text: "🏗️ View 10 Services", query: "services" },
-                    { text: "📞 Contact Engineer", query: "contact" }
+                    { text: "🌐 View Services", query: "services" },
+                    { text: "📞 Contact Engineering Team", query: "contact" }
                 ]
             }, true);
         } finally {
