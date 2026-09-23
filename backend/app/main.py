@@ -74,7 +74,10 @@ if FRONTEND_DIR.exists():
 
     @app.get("/")
     def serve_index():
-        return FileResponse(FRONTEND_DIR / "index.html")
+        index_file = FRONTEND_DIR / "index.html"
+        if index_file.exists():
+            return FileResponse(index_file)
+        return {"status": "healthy", "service": settings.PROJECT_NAME, "version": settings.PROJECT_VERSION}
 
     @app.get("/login")
     @app.get("/login.html")
@@ -91,6 +94,11 @@ if FRONTEND_DIR.exists():
     def serve_my_requests():
         return FileResponse(FRONTEND_DIR / "my-requests.html")
 
+    @app.get("/technical-documents")
+    @app.get("/technical-documents.html")
+    def serve_technical_documents():
+        return FileResponse(FRONTEND_DIR / "technical-documents.html")
+
     # Serve service detail pages
     @app.get("/services/{slug}")
     @app.get("/services/{slug}/")
@@ -103,3 +111,14 @@ if FRONTEND_DIR.exists():
 
     # Catch-all for assets (css, js, images, etc.)
     app.mount("/", StaticFiles(directory=str(FRONTEND_DIR), html=True), name="frontend_root")
+else:
+    @app.get("/")
+    def serve_api_root():
+        return {
+            "status": "healthy",
+            "service": settings.PROJECT_NAME,
+            "version": settings.PROJECT_VERSION,
+            "docs": "/docs",
+            "api_v1": settings.API_V1_STR
+        }
+
