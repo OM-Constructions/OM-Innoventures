@@ -1,0 +1,16 @@
+{
+  "name": "om-innoventures-frontend",
+  "version": "1.0.0",
+  "description": "OM Innoventures & Build AI Technologies Frontend",
+  "scripts": {
+    "dev": "python3 -m http.server 3000",
+    "start": "python3 -m http.server 3000"
+  },
+  "keywords": [
+    "om-innoventures",
+    "ai",
+    "software"
+  ],
+  "author": "Kishor Kumar A",
+  "license": "ISC"
+}

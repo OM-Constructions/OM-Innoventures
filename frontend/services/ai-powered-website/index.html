@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-POWERED WEBSITE | OM Innoventures</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../style.css?v=31">
+    
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "gsap": "https://unpkg.com/gsap@3.12.2/index.js",
+                "gsap/ScrollTrigger": "https://unpkg.com/gsap@3.12.2/ScrollTrigger.js"
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <!-- NAV BAR -->
+    <nav id="navbar" class="scrolled">
+        <div class="container nav-container">
+            <a href="../../index.html" class="nav-brand">OM<span>Intelligence</span></a>
+            <div class="nav-links">
+                <a href="../../index.html#hero">HOME</a>
+                <a href="../../index.html#services-website">SERVICES</a>
+            </div>
+            <div class="nav-actions">
+                <span id="nav-auth-container" class="nav-auth-group">
+                    <a href="../../login.html" class="nav-auth-link nav-auth-login">Log In</a>
+                    <a href="../../signup.html" class="nav-auth-link nav-auth-signup">Sign Up</a>
+                </span>
+                <a href="../../index.html#cta" class="btn-primary">Let's Talk</a>
+                <script type="module">
+                    import { getCurrentUser, logout } from "../../src/auth.js";
+                    const container = document.getElementById("nav-auth-container");
+                    if (container) {
+                        getCurrentUser().then(user => {
+                            if (user) {
+                                container.innerHTML = `
+                                    <a href="../../my-requests.html" class="nav-auth-link nav-auth-login" style="color: var(--gold-accent); font-weight: 600;">My Requests</a>
+                                    <a href="#" id="nav-logout-link" class="nav-auth-link nav-auth-signup">Log Out</a>
+                                `;
+                                document.getElementById("nav-logout-link")?.addEventListener("click", async (e) => {
+                                    e.preventDefault();
+                                    await logout().catch(() => {});
+                                    window.location.reload();
+                                });
+                            }
+                        });
+                    }
+                </script>
+            </div>
+            <button class="hamburger">☰</button>
+        </div>
+    </nav>
+
+    <main class="service-page-main">
+        <!-- HERO -->
+                <!-- HERO: Split Layout -->
+        <section class="service-page-hero">
+            <div class="container">
+                <div class="service-hero-split gsap-reveal">
+
+                    <!-- LEFT: text info -->
+                    <div class="service-hero-left">
+                        <span class="eyebrow">SERVICE DETAILS</span>
+                        <h1>AI-POWERED WEBSITE</h1>
+                        <p>Innovative, data-driven, and perfectly scaled solutions designed around the core requirements and growth potential of your business.</p>
+                    </div>
+
+                    <!-- RIGHT: image panel -->
+                    <div class="service-hero-right">
+                        <img
+                            src="../../assets/services/unique/ai-powered-website.jpg"
+                            alt="AI-POWERED WEBSITE"
+                            onerror="this.src='../../assets/services/ai-ml-system.jpg'"
+                        >
+                        <div class="service-hero-img-caption">
+                            <span class="caption-badge">⚡ Real System Architecture &bull; AI-POWERED WEBSITE</span>
+                            <span class="caption-tag">OM Innoventures &bull; Verified Implementation</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 01 OVERVIEW -->
+        <section class="sp-section sp-overview">
+            <div class="container gsap-reveal">
+                <span class="sp-label">01 &mdash; OVERVIEW</span>
+                <p>Next-generation websites that utilize Artificial Intelligence to adapt, personalize, and optimize the user journey. From dynamic content generation to smart search, your website becomes an active participant in sales.</p>
+            </div>
+        </section>
+
+        <!-- 02 WHAT WE FOCUS ON -->
+        <section class="sp-section sp-section-gray">
+            <div class="container gsap-reveal">
+                <span class="sp-label" style="color: var(--navy-primary);">02 &mdash; WHAT WE FOCUS ON</span>
+                <h2 class="sp-title">Capabilities & Deliverables</h2>
+                <div class="sp-focus-grid">
+                    
+                    <div class="sp-focus-item">
+                        <h3>Dynamic Personalization</h3>
+                        <p>AI algorithms that alter page layouts, messaging, and offers based on individual visitor behavior.</p>
+                    </div>
+                    <div class="sp-focus-item">
+                        <h3>Smart Search Capabilities</h3>
+                        <p>NLP-powered search bars that understand context and typos to deliver exact results.</p>
+                    </div>
+                    <div class="sp-focus-item">
+                        <h3>Automated Content Tagging</h3>
+                        <p>Computer vision and NLP automatically categorize and tag uploaded images and text.</p>
+                    </div>
+                    <div class="sp-focus-item">
+                        <h3>Predictive Lead Scoring</h3>
+                        <p>Background algorithms that score visitor engagement to alert sales teams of high-intent prospects.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- PRICING SECTION -->
+        <section class="sp-section" style="text-align: center;">
+            <div class="container gsap-reveal">
+                <span class="sp-label">INVESTMENT</span>
+                <h2 class="sp-title" style="margin-bottom: 20px;">Estimated Pricing</h2>
+                <div style="font-size: 2.5rem; color: var(--gold-accent); font-weight: 700; font-family: 'Exo 2', sans-serif;">
+                    ₹74,999+
+                </div>
+                <p style="margin-top: 15px; max-width: 600px; margin-left: auto; margin-right: auto; opacity: 0.8;">Note: Exact pricing may vary depending on project complexity, scope, and specific client requirements.</p>
+            </div>
+        </section>
+
+        <!-- RELATED PAST WORK & VERIFIED REVIEWS -->
+        <section class="sp-section" style="background: rgba(255,255,255,0.02);">
+            <div class="container gsap-reveal">
+                <span class="sp-label">PAST WORK &amp; REVIEWS</span>
+                <h2 class="sp-title">Verified Projects</h2>
+                <div id="serviceProjectsContainer" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 30px;">
+                    <!-- Dynamically populated from GET /api/v1/projects/published -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>OM INNOVENTURES</h3>
+                    <p>&amp; AI AGENCY</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="../../index.html#hero">Home</a></li>
+                        <li><a href="../../index.html#services-website">Services</a></li>
+                        <li><a href="../../index.html#capabilities">Capabilities</a></li>
+                        <li><a href="../../index.html#industries">Industries</a></li>
+                        <li><a href="../../index.html#about">About</a></li>
+                        <li><a href="../../index.html#cta">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 OM Innoventures. All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="../../src/main.js"></script>
+    <script type="module">
+        import { renderPublishedProjects } from "../../src/projectsRenderer.js";
+        document.addEventListener('DOMContentLoaded', () => {
+            renderPublishedProjects('serviceProjectsContainer', 'ai-powered-website');
+        });
+    </script>
+
+    <script type="module">
+        import gsap from 'gsap';
+        import ScrollTrigger from 'gsap/ScrollTrigger';
+        
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Reveal elements using GSAP
+        setTimeout(() => {
+            const reveals = document.querySelectorAll('.gsap-reveal');
+            reveals.forEach((el) => {
+                gsap.fromTo(el, 
+                    { opacity: 0, y: 50, visibility: 'hidden' }, 
+                    {
+                        scrollTrigger: {
+                            trigger: el,
+                            start: "top 85%",
+                            toggleActions: "play none none none"
+                        },
+                        opacity: 1,
+                        y: 0,
+                        visibility: 'visible',
+                        duration: 1,
+                        ease: "power2.out"
+                    }
+                );
+            });
+
+            // Interactive 3D tilt motion on featured image
+            const imgBox = document.querySelector('.service-featured-image-box');
+            if (imgBox) {
+                imgBox.style.transition = 'transform 0.15s ease-out';
+                imgBox.addEventListener('mousemove', (e) => {
+                    const rect = imgBox.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    const rotX = (-y / rect.height) * 10;
+                    const rotY = (x / rect.width) * 10;
+                    imgBox.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.02)`;
+                });
+                imgBox.addEventListener('mouseleave', () => {
+                    imgBox.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
+                });
+            }
+        }, 100);
+    </script>
+</body>
+</html>

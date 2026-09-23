@@ -1,0 +1,36 @@
+# Environment variables & secrets
+.env
+.env.*
+!.env.example
+backend/.env
+backend/.env.*
+!backend/.env.example
+
+# Python virtual environment & cache
+venv/
+backend/venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.pytest_cache/
+
+# Databases
+*.db
+*.sqlite3
+om_innoventures.db
+backend/om_innoventures.db
+
+# Node dependencies & builds
+node_modules/
+dist/
+build/
+.npm
+
+# OS & IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.gemini/

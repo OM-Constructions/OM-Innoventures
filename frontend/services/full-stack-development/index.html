@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FULL STACK DEVELOPMENT | OM Innoventures & AI Technologies</title>
+    <meta name="description" content="End-to-end full stack web, mobile, and cloud software development. High-performance React & Next.js frontends powered by scalable Python FastAPI & Node.js backends.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../style.css?v=31">
+    
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "gsap": "https://unpkg.com/gsap@3.12.2/index.js",
+                "gsap/ScrollTrigger": "https://unpkg.com/gsap@3.12.2/ScrollTrigger.js"
+            }
+        }
+    </script>
+    <style>
+        /* Fallback for GSAP */
+        .gsap-reveal {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+        }
+
+        .sp-enquiry-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            margin-top: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .sp-enquiry-form .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        @media(max-width: 768px) {
+            .sp-enquiry-form .form-row { flex-direction: column; gap: 0; }
+        }
+        .sp-enquiry-form .form-group {
+            flex: 1;
+            margin-bottom: 20px;
+        }
+        .sp-enquiry-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--navy-primary);
+        }
+        .sp-enquiry-form input, .sp-enquiry-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+        .sp-enquiry-form input:focus, .sp-enquiry-form textarea:focus {
+            outline: none;
+            border-color: var(--gold-accent);
+        }
+
+        .sp-process-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 40px;
+        }
+        @media(min-width: 768px) {
+            .sp-process-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media(min-width: 1024px) {
+            .sp-process-grid { grid-template-columns: 1fr 1fr 1fr; }
+        }
+        .sp-process-step {
+            background: rgba(255,255,255,0.05);
+            padding: 30px;
+            border-left: 3px solid var(--gold-accent);
+            border-radius: 4px;
+        }
+        .sp-process-step h3 { color: var(--gold-accent); font-family: 'Exo 2', sans-serif; font-size: 1.2rem; margin-bottom: 10px; }
+        
+        .sp-tech-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .sp-tech-badge {
+            background: var(--navy-primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .sp-why-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        @media(min-width: 768px) {
+            .sp-why-grid { grid-template-columns: 1fr 1fr; }
+        }
+        .sp-why-item {
+            display: flex;
+            gap: 20px;
+        }
+        .sp-why-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(234, 182, 118, 0.1);
+            color: var(--gold-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .sp-case-study-box {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            margin-top: 40px;
+        }
+        .sp-case-metrics {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 30px;
+        }
+        .sp-metric-val {
+            font-size: 2.5rem;
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 800;
+            color: var(--navy-primary);
+        }
+        .sp-metric-label {
+            color: #666;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV BAR -->
+    <nav id="navbar" class="scrolled">
+        <div class="container nav-container">
+            <a href="../../index.html" class="nav-brand">
+                <span class="brand-om">OM</span><span class="brand-long">Innoventures</span>
+            </a>
+            <div class="nav-links">
+                <a href="../../index.html#hero" class="nav-link-item">Home</a>
+                <a href="../../index.html#services" class="nav-link-item">Services</a>
+                <a href="../../index.html#capabilities" class="nav-link-item">Capabilities</a>
+                <a href="../../index.html#about" class="nav-link-item">About</a>
+            </div>
+            <div class="nav-actions">
+                <span id="nav-auth-container" class="nav-auth-group">
+                    <a href="../../login.html" class="nav-auth-link nav-auth-login">Log In</a>
+                    <a href="../../signup.html" class="nav-auth-link nav-auth-signup">Sign Up</a>
+                </span>
+                <a href="../../index.html#cta" class="btn-primary">Let's Talk</a>
+            </div>
+            <button class="hamburger">☰</button>
+        </div>
+    </nav>
+
+    <main class="service-page-main">
+        <!-- 1. HERO -->
+        <section class="service-page-hero">
+            <div class="container">
+                <div class="service-hero-split gsap-reveal">
+
+                    <!-- LEFT: text info -->
+                    <div class="service-hero-left">
+                        <span class="eyebrow">ENTERPRISE ENGINEERING</span>
+                        <h1>FULL STACK DEVELOPMENT</h1>
+                        <p>Complete end-to-end web, mobile, and cloud software engineering. Seamlessly bridging responsive reactive frontends with resilient high-throughput backend microservices.</p>
+                    </div>
+
+                    <!-- RIGHT: image panel -->
+                    <div class="service-hero-right">
+                        <img
+                            src="../../assets/services/unique/full-stack-development.jpg"
+                            alt="FULL STACK DEVELOPMENT"
+                            onerror="this.src='../../assets/services/ai-ml-system.jpg'"
+                        >
+                        <div class="service-hero-img-caption">
+                            <span class="caption-badge">⚡ Real System Architecture &bull; FULL STACK ECOSYSTEM</span>
+                            <span class="caption-tag">OM Innoventures &bull; Verified Implementation</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. OVERVIEW -->
+        <section class="sp-section sp-overview">
+            <div class="container gsap-reveal">
+                <span class="sp-label">01 &mdash; OVERVIEW</span>
+                <h2 class="sp-title">Unified Architecture From UI to Database</h2>
+                <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 20px;">
+                    Modern digital products demand complete vertical integration. Our Full Stack Development service engineers every layer of your application stack—from pixel-perfect user experiences and state-driven frontends to secure REST/GraphQL microservices, high-speed caches, relational & NoSQL databases, and automated cloud deployments.
+                </p>
+                <p style="font-size: 1.1rem; line-height: 1.8;">
+                    Whether building a multi-tenant SaaS platform, real-time analytics portal, or custom internal business operating system, we construct robust codebases built for sub-second latency, rigorous data validation, and effortless horizontal scaling.
+                </p>
+            </div>
+        </section>
+
+        <!-- 3. KEY OFFERINGS -->
+        <section class="sp-section sp-section-gray">
+            <div class="container gsap-reveal">
+                <span class="sp-label" style="color: var(--navy-primary);">02 &mdash; CAPABILITIES &amp; DELIVERABLES</span>
+                <h2 class="sp-title">End-to-End Development Stack</h2>
+                <div class="sp-focus-grid">
+                    <div class="sp-focus-item">
+                        <h3>Interactive Reactive Frontends</h3>
+                        <p>High-converting Single Page (SPA) and Server-Side Rendered (SSR) interfaces using Next.js, React 19, TypeScript, and Tailwind CSS.</p>
+                    </div>
+                    <div class="sp-focus-item">
+                        <h3>High-Throughput Backend APIs</h3>
+                        <p>Async microservices and API gateways built with Python (FastAPI/Django) and Node.js (Nest/Express), featuring real-time WebSockets.</p>
+                    </div>
+                    <div class="sp-focus-item">
+                        <h3>Database Architecture & Caching</h3>
+                        <p>Optimized relational (PostgreSQL, MySQL), NoSQL (MongoDB), and in-memory caching (Redis) architectures designed for ACID compliance.</p>
+                    </div>
+                    <div class="sp-focus-item">
+                        <h3>Auth, Security & RBAC</h3>
+                        <p>Enterprise identity management with OAuth2, JWT tokens, Multi-Factor Authentication, Role-Based Access Control, and encrypted payloads.</p>
+                    </div>
+                    <div class="sp-focus-item">
+                        <h3>Cloud DevOps & CI/CD Pipelines</h3>
+                        <p>Containerized deployments with Docker, Kubernetes, automated GitHub Actions pipelines, and scalable cloud infrastructure on AWS and GCP.</p>
+                    </div>
+                    <div class="sp-focus-item">
+                        <h3>Third-Party & Payment Integrations</h3>
+                        <p>Flawless integration with Stripe billing, SendGrid, Twilio, external ERPs, CRMs, and custom AI/LLM inference endpoints.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 4. PROCESS / APPROACH -->
+        <section class="sp-section">
+            <div class="container gsap-reveal">
+                <span class="sp-label">03 &mdash; OUR METHODOLOGY</span>
+                <h2 class="sp-title">Agile Full Stack Lifecycle</h2>
+                <div class="sp-process-grid">
+                    <div class="sp-process-step">
+                        <h3>01. System Architecture Blueprint</h3>
+                        <p>We model data schemas, define API contracts, choose the optimal technology stack, and establish architectural milestones.</p>
+                    </div>
+                    <div class="sp-process-step">
+                        <h3>02. UI/UX Wireframing & Prototyping</h3>
+                        <p>Interactive Figma designs and design systems that align user journeys directly with planned backend data structures.</p>
+                    </div>
+                    <div class="sp-process-step">
+                        <h3>03. Iterative Sprint Development</h3>
+                        <p>Bi-weekly sprints featuring automated testing, continuous integration, and staging environments for real-time client feedback.</p>
+                    </div>
+                    <div class="sp-process-step">
+                        <h3>04. Security Auditing & Load Testing</h3>
+                        <p>Penetration checks, SQL injection protections, rate limiting, and stress testing under concurrent user loads.</p>
+                    </div>
+                    <div class="sp-process-step">
+                        <h3>05. Zero-Downtime Deployment</h3>
+                        <p>Automated cloud rollout with SSL, CDN caching, database automated backups, and 24/7 observability monitoring.</p>
+                    </div>
+                    <div class="sp-process-step">
+                        <h3>06. Continuous Iteration & Support</h3>
+                        <p>Feature scaling, performance profiling, dependency updates, and dedicated technical maintenance.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 5. TECH STACK -->
+        <section class="sp-section sp-section-gray">
+            <div class="container gsap-reveal">
+                <span class="sp-label" style="color: var(--navy-primary);">04 &mdash; TECHNOLOGY ECOSYSTEM</span>
+                <h2 class="sp-title">Technologies We Master</h2>
+                <p>Enterprise-grade tooling and frameworks selected for maintainability, speed, and long-term developer velocity.</p>
+                <div class="sp-tech-grid">
+                    <span class="sp-tech-badge">Next.js 14/15</span>
+                    <span class="sp-tech-badge">React &amp; TypeScript</span>
+                    <span class="sp-tech-badge">Python &amp; FastAPI</span>
+                    <span class="sp-tech-badge">Node.js &amp; Express</span>
+                    <span class="sp-tech-badge">PostgreSQL</span>
+                    <span class="sp-tech-badge">Redis Cache</span>
+                    <span class="sp-tech-badge">Docker &amp; K8s</span>
+                    <span class="sp-tech-badge">AWS &amp; Cloudflare</span>
+                    <span class="sp-tech-badge">GraphQL &amp; REST</span>
+                    <span class="sp-tech-badge">Tailwind CSS</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 6. WHY CHOOSE US -->
+        <section class="sp-section">
+            <div class="container gsap-reveal">
+                <span class="sp-label">05 &mdash; WHY CHOOSE US</span>
+                <h2 class="sp-title">The OM Innoventures Advantage</h2>
+                <div class="sp-why-grid">
+                    <div class="sp-why-item">
+                        <div class="sp-why-icon">✦</div>
+                        <div>
+                            <h3 style="color: var(--navy-primary); margin-bottom: 8px;">Single Accountability</h3>
+                            <p>No finger-pointing between frontend and backend teams. We take complete ownership of your entire software stack.</p>
+                        </div>
+                    </div>
+                    <div class="sp-why-item">
+                        <div class="sp-why-icon">✦</div>
+                        <div>
+                            <h3 style="color: var(--navy-primary); margin-bottom: 8px;">AI-Augmented Velocity</h3>
+                            <p>Our engineers leverage cutting-edge AI code generation and automated testing to ship production software 2x faster.</p>
+                        </div>
+                    </div>
+                    <div class="sp-why-item">
+                        <div class="sp-why-icon">✦</div>
+                        <div>
+                            <h3 style="color: var(--navy-primary); margin-bottom: 8px;">Clean, Documented Code</h3>
+                            <p>Modular architectures with typed schemas, comprehensive unit tests, and thorough API Swagger documentation.</p>
+                        </div>
+                    </div>
+                    <div class="sp-why-item">
+                        <div class="sp-why-icon">✦</div>
+                        <div>
+                            <h3 style="color: var(--navy-primary); margin-bottom: 8px;">Enterprise Scale From Day 1</h3>
+                            <p>Built with stateless server architectures and cloud-native standards ready to scale from 100 to 1,000,000+ users.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 7. CASE STUDY -->
+        <section class="sp-section sp-section-gray">
+            <div class="container gsap-reveal">
+                <span class="sp-label" style="color: var(--navy-primary);">06 &mdash; PROVEN SUCCESS</span>
+                <h2 class="sp-title">Featured Case Study</h2>
+                
+                <div class="sp-case-study-box">
+                    <h3 style="font-size: 1.8rem; margin-bottom: 30px; color: var(--navy-primary);">Building a Scalable Enterprise Cloud Application</h3>
+                    <div class="sp-case-metrics">
+                        <div>
+                            <div class="sp-metric-val">65%</div>
+                            <div class="sp-metric-label">Faster Page Latency</div>
+                        </div>
+                        <div>
+                            <div class="sp-metric-val">99.98%</div>
+                            <div class="sp-metric-label">Uptime Reliability</div>
+                        </div>
+                        <div>
+                            <div class="sp-metric-val">4.8/5</div>
+                            <div class="sp-metric-label">User Satisfaction</div>
+                        </div>
+                    </div>
+                    <p style="font-size: 1.1rem; line-height: 1.8; color: #444;">
+                        "A fast-growing B2B company needed to replace a fragmented legacy web portal with a unified SaaS application. We designed and built an end-to-end full stack solution using Next.js on the frontend and FastAPI on the backend with PostgreSQL and Redis. The new application handles millions of monthly data transactions with zero downtime and transformed their customer onboarding experience."
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 8. ENQUIRY FORM -->
+        <section class="sp-section sp-section-gray" id="enquire">
+            <div class="container gsap-reveal">
+                <span class="sp-label" style="color: var(--navy-primary);">07 &mdash; ENQUIRE NOW</span>
+                <h2 class="sp-title" style="text-align: center;">Start Your Full Stack Project</h2>
+                <p style="text-align: center; max-width: 600px; margin: 0 auto 30px auto;">Fill out the form below and our full stack engineering team will review your scope and get back to you within 24 hours.</p>
+                
+                <div class="sp-enquiry-card" data-service-slug="full-stack-development">
+                    <form action="#" method="POST" class="sp-enquiry-form" data-service-slug="full-stack-development">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Full Name *</label>
+                                <input type="text" id="name" name="name" required placeholder="e.g. Alex Morgan">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Work Email *</label>
+                                <input type="email" id="email" name="email" required placeholder="alex@company.com">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">Phone / WhatsApp *</label>
+                                <input type="tel" id="phone" name="phone" required placeholder="+91 98765 43210">
+                            </div>
+                            <div class="form-group">
+                                <label for="company">Company / Project Name</label>
+                                <input type="text" id="company" name="company" placeholder="e.g. Nexus Tech Ltd">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="details">Project Requirements &amp; Scope *</label>
+                            <textarea id="details" name="details" required rows="4" placeholder="Tell us about the application you want to build, desired tech stack, features, and timeline..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Submit Full Stack Enquiry &rarr;</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>OM INNOVENTURES</h3>
+                    <p>&amp; AI TECHNOLOGIES</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="../../index.html#hero">Home</a></li>
+                        <li><a href="../../index.html#services">Services</a></li>
+                        <li><a href="../../index.html#capabilities">Capabilities</a></li>
+                        <li><a href="../../index.html#about">About</a></li>
+                        <li><a href="../../index.html#cta">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 OM Innoventures. All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="../../src/main.js"></script>
+
+    <!-- GSAP REVEAL SCRIPT -->
+    <script type="module">
+        import gsap from 'https://unpkg.com/gsap@3.12.2/index.js';
+        import ScrollTrigger from 'https://unpkg.com/gsap@3.12.2/ScrollTrigger.js';
+        
+        gsap.registerPlugin(ScrollTrigger);
+
+        const reveals = document.querySelectorAll('.gsap-reveal');
+        reveals.forEach(el => {
+            el.style.opacity = '0';
+            el.style.visibility = 'hidden';
+        });
+
+        setTimeout(() => {
+            reveals.forEach((el) => {
+                gsap.fromTo(el, 
+                    { opacity: 0, y: 50, visibility: 'hidden' }, 
+                    {
+                        scrollTrigger: {
+                            trigger: el,
+                            start: "top 85%",
+                            toggleActions: "play none none none"
+                        },
+                        opacity: 1,
+                        y: 0,
+                        visibility: 'visible',
+                        duration: 1,
+                        ease: "power2.out",
+                        clearProps: "all" 
+                    }
+                );
+            });
+        }, 100);
+    </script>
+</body>
+</html>

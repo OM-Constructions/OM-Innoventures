@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects &amp; Enquiries | OM Innoventures & Build AI Technologies</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .portal-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-subtle, #e2e8f0);
+            padding-bottom: 12px;
+        }
+
+        .portal-tab-btn {
+            background: none;
+            border: none;
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-muted, #64748b);
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .portal-tab-btn.active {
+            color: #0b192c;
+            background: rgba(218, 165, 32, 0.15);
+            color: #b45309;
+        }
+
+        .card-box {
+            background: #fff;
+            border: 1px solid var(--border-subtle, #e2e8f0);
+            border-radius: 10px;
+            padding: 22px 26px;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card-box:hover {
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .card-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: #0b192c;
+            font-size: 1.1rem;
+            margin: 0 0 4px 0;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-in-progress {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+
+        .badge-completed {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+
+        .badge-published {
+            background: #DBEAFE;
+            color: #1E40AF;
+        }
+
+        .badge-pending {
+            background: #FFEDD5;
+            color: #C2410C;
+        }
+
+        .badge-rejected {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+
+        .card-meta {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+
+        .card-body-text {
+            font-size: 0.92rem;
+            color: #334155;
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+
+        .review-box {
+            background: #f8fafc;
+            border-left: 3px solid #f59e0b;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-top: 12px;
+        }
+
+        .stars-display {
+            color: #f59e0b;
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .btn-review {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #0f172a;
+            color: #f8fafc;
+            font-weight: 600;
+            font-size: 0.88rem;
+            padding: 8px 18px;
+            border-radius: 6px;
+            border: 1px solid #334155;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-review:hover {
+            background: #f59e0b;
+            color: #0f172a;
+            border-color: #f59e0b;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: #ffffff;
+            border-radius: 12px;
+            max-width: 520px;
+            width: 100%;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            transform: scale(0.95);
+            transition: transform 0.25s ease;
+        }
+
+        .modal-overlay.open .modal-card {
+            transform: scale(1);
+        }
+
+        .star-picker {
+            display: flex;
+            gap: 8px;
+            margin: 12px 0 20px;
+            cursor: pointer;
+        }
+
+        .star-picker-star {
+            font-size: 2rem;
+            color: #cbd5e1;
+            transition: color 0.15s ease;
+            user-select: none;
+        }
+
+        .star-picker-star.active,
+        .star-picker-star:hover {
+            color: #f59e0b;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV BAR -->
+    <nav id="navbar" class="scrolled">
+        <div class="container nav-container">
+            <a href="./index.html" class="nav-brand">OM<span>s</span></a>
+            <div class="nav-links">
+                <a href="./index.html#hero">Home</a>
+                <a href="./index.html#services">Services</a>
+                <a href="./index.html#work">Our Projects</a>
+                <a href="./index.html#about">About</a>
+                <a href="./index.html#cta">Contact</a>
+                <a href="./my-requests.html" style="color: var(--gold-accent, #daa520); font-weight: 600;">Client
+                    Portal</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="auth-page-wrapper">
+        <div class="blueprint-animation-container" aria-hidden="true">
+            <svg class="blueprint-svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice"
+                xmlns="http://www.w3.org/2000/svg">
+                <path class="blueprint-line bp-1" d="M0,200 L1440,200" />
+                <path class="blueprint-line bp-2" d="M300,0 L300,900" />
+                <path class="blueprint-line bp-3" d="M1100,0 L1100,900" />
+                <path class="blueprint-line bp-4" d="M150,600 L1290,600 M150,600 L150,800 L450,800 L450,600" />
+                <path class="blueprint-line bp-5" d="M800,100 L1200,100 L1200,500 L800,500 Z" />
+            </svg>
+        </div>
+
+        <div class="auth-card" style="max-width: 820px;">
+            <div class="auth-header">
+                <span class="auth-eyebrow">Client Dashboard</span>
+                <h1 id="portalTitle">Welcome to your Portal</h1>
+                <p id="portalSubtitle">Track your completed projects, leave verified reviews, and view consultation
+                    requests.</p>
+            </div>
+
+            <!-- Loading State -->
+            <div id="requestsLoadingState" style="text-align: center; padding: 40px 0;">
+                <div
+                    style="width: 36px; height: 36px; border: 3px solid #e2e8f0; border-top-color: #0b192c; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px;">
+                </div>
+                <p style="color: #64748b;">Loading your projects and account data...</p>
+            </div>
+
+            <!-- Not Logged In State -->
+            <div id="requestsNotLoggedIn" style="display: none; text-align: center; padding: 40px 0;">
+                <p style="color: #64748b; margin-bottom: 24px;">Please log in to your verified client account to manage
+                    your projects and leave reviews.</p>
+                <a href="./login.html?redirect=./my-requests.html" class="btn-primary">Log In to Your Account</a>
+            </div>
+
+            <!-- Logged In Content -->
+            <div id="portalContent" style="display: none;">
+                <!-- Navigation Tabs -->
+                <div class="portal-tabs">
+                    <button class="portal-tab-btn active" id="tabProjectsBtn" onclick="switchTab('projects')">🚀
+                        Completed Projects &amp; Reviews</button>
+                    <button class="portal-tab-btn" id="tabEnquiriesBtn" onclick="switchTab('enquiries')">📨 Enquiries
+                        &amp; Requests</button>
+                </div>
+
+                <!-- Projects & Reviews Tab Panel -->
+                <div id="projectsSection">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+                        <h3
+                            style="font-family: var(--font-heading); color: #0b192c; font-size: 1.15rem; font-weight: 700; margin: 0;">
+                            Verified Client Projects</h3>
+                        <a href="./index.html#cta" class="btn-primary" style="font-size: 0.85rem; padding: 8px 16px;">+
+                            Request New Project</a>
+                    </div>
+
+                    <div id="projectsContainer"></div>
+
+                    <div id="projectsEmpty"
+                        style="display: none; text-align: center; padding: 36px 16px; background: #f8fafc; border-radius: 8px; border: 1px dashed #cbd5e1;">
+                        <p style="color: #64748b; margin-bottom: 16px;">You don't have any recorded projects yet. Once
+                            our team completes a commissioned project for you, it will appear here for verified review
+                            submission.</p>
+                        <a href="./index.html#cta" class="btn-primary" style="font-size: 0.88rem;">Start a
+                            Commission</a>
+                    </div>
+                </div>
+
+                <!-- Enquiries Tab Panel -->
+                <div id="enquiriesSection" style="display: none;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+                        <h3
+                            style="font-family: var(--font-heading); color: #0b192c; font-size: 1.15rem; font-weight: 700; margin: 0;">
+                            Submitted Enquiries</h3>
+                        <a href="./index.html#cta" class="btn-primary" style="font-size: 0.85rem; padding: 8px 16px;">+
+                            New Enquiry</a>
+                    </div>
+
+                    <div id="enquiriesContainer"></div>
+
+                    <div id="enquiriesEmpty"
+                        style="display: none; text-align: center; padding: 36px 16px; background: #f8fafc; border-radius: 8px; border: 1px dashed #cbd5e1;">
+                        <p style="color: #64748b; margin-bottom: 16px;">You haven't submitted any enquiries yet.</p>
+                        <a href="./index.html#cta" class="btn-primary" style="font-size: 0.88rem;">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error State -->
+            <div id="requestsError" style="display: none; text-align: center; padding: 32px 0;">
+                <p style="color: #ef4444; margin-bottom: 16px;" id="requestsErrorMsg">Unable to load your requests.</p>
+                <button onclick="loadPortalData()" class="btn-outline" style="font-size: 0.9rem;">Try Again</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- REVIEW SUBMISSION MODAL -->
+    <div class="modal-overlay" id="reviewModal" aria-hidden="true">
+        <div class="modal-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                <div>
+                    <h2 style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; color: #0b192c; margin: 0 0 4px;"
+                        id="modalProjectTitle">Review Project</h2>
+                    <p style="font-size: 0.85rem; color: #64748b; margin: 0;">Your review will be verified and displayed
+                        publicly on our portfolio upon approval.</p>
+                </div>
+                <button type="button" onclick="closeReviewModal()"
+                    style="background: none; border: none; font-size: 1.5rem; line-height: 1; cursor: pointer; color: #94a3b8;">&times;</button>
+            </div>
+
+            <form id="reviewForm" onsubmit="handleReviewSubmit(event)" style="margin-top: 16px;">
+                <input type="hidden" id="modalProjectId" value="">
+
+                <label
+                    style="display: block; font-weight: 600; font-size: 0.9rem; color: #1e293b; margin-bottom: 4px;">Overall
+                    Rating</label>
+                <div class="star-picker" id="starPicker">
+                    <span class="star-picker-star active" data-value="1">★</span>
+                    <span class="star-picker-star active" data-value="2">★</span>
+                    <span class="star-picker-star active" data-value="3">★</span>
+                    <span class="star-picker-star active" data-value="4">★</span>
+                    <span class="star-picker-star active" data-value="5">★</span>
+                </div>
+                <input type="hidden" id="reviewRatingInput" value="5">
+
+                <div style="margin-bottom: 18px;">
+                    <label for="reviewTextInput"
+                        style="display: block; font-weight: 600; font-size: 0.9rem; color: #1e293b; margin-bottom: 6px;">Your
+                        Experience &amp; Feedback</label>
+                    <textarea id="reviewTextInput" rows="4" required
+                        placeholder="Share your experience working with OM Innoventures on this project..."
+                        style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px; font-family: inherit; font-size: 0.9rem; box-sizing: border-box;"></textarea>
+                </div>
+
+                <div id="modalReviewError"
+                    style="display: none; color: #dc2626; font-size: 0.85rem; margin-bottom: 12px;"></div>
+
+                <div style="display: flex; justify-content: flex-end; gap: 10px;">
+                    <button type="button" onclick="closeReviewModal()" class="btn-outline"
+                        style="padding: 8px 18px; font-size: 0.9rem;">Cancel</button>
+                    <button type="submit" id="submitReviewBtn" class="btn-primary"
+                        style="padding: 8px 22px; font-size: 0.9rem;">Submit Review</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-bottom" style="border-top: none; padding-top: 0; justify-content: center;">
+                <span>&copy; 2026 OM Innoventures & Build AI Technologies. All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import {
+            getCurrentUser,
+            getMySubmissions,
+            getMyProjects,
+            submitProjectReview,
+            isStoredUserLoggedIn,
+            getStoredToken
+        } from "./src/auth.js";
+
+        let selectedRating = 5;
+
+        function formatDate(isoStr) {
+            if (!isoStr) return '—';
+            try {
+                return new Date(isoStr).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+            } catch { return isoStr; }
+        }
+
+        function formatServiceName(slug) {
+            if (!slug) return 'General Solution';
+            return slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+        }
+
+        function renderStars(rating) {
+            const r = Math.min(5, Math.max(1, parseInt(rating, 10) || 5));
+            return '★'.repeat(r) + '☆'.repeat(5 - r);
+        }
+
+        window.switchTab = function (tabName) {
+            const projectsSec = document.getElementById('projectsSection');
+            const enquiriesSec = document.getElementById('enquiriesSection');
+            const tabProjBtn = document.getElementById('tabProjectsBtn');
+            const tabEnqBtn = document.getElementById('tabEnquiriesBtn');
+
+            if (tabName === 'projects') {
+                projectsSec.style.display = 'block';
+                enquiriesSec.style.display = 'none';
+                tabProjBtn.classList.add('active');
+                tabEnqBtn.classList.remove('active');
+            } else {
+                projectsSec.style.display = 'none';
+                enquiriesSec.style.display = 'block';
+                tabProjBtn.classList.remove('active');
+                tabEnqBtn.classList.add('active');
+            }
+        };
+
+        window.openReviewModal = function (projectId, projectTitle) {
+            document.getElementById('modalProjectId').value = projectId;
+            document.getElementById('modalProjectTitle').textContent = `Review: ${projectTitle}`;
+            document.getElementById('reviewTextInput').value = '';
+            document.getElementById('modalReviewError').style.display = 'none';
+            setRating(5);
+            const modal = document.getElementById('reviewModal');
+            modal.classList.add('open');
+            modal.setAttribute('aria-hidden', 'false');
+        };
+
+        window.closeReviewModal = function () {
+            const modal = document.getElementById('reviewModal');
+            modal.classList.remove('open');
+            modal.setAttribute('aria-hidden', 'true');
+        };
+
+        function setRating(val) {
+            selectedRating = val;
+            document.getElementById('reviewRatingInput').value = val;
+            const stars = document.querySelectorAll('#starPicker .star-picker-star');
+            stars.forEach(star => {
+                const starVal = parseInt(star.getAttribute('data-value'), 10);
+                if (starVal <= val) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        // Setup star picker interaction
+        document.querySelectorAll('#starPicker .star-picker-star').forEach(star => {
+            star.addEventListener('click', () => {
+                const val = parseInt(star.getAttribute('data-value'), 10);
+                setRating(val);
+            });
+        });
+
+        window.handleReviewSubmit = async function (e) {
+            e.preventDefault();
+            const projectId = document.getElementById('modalProjectId').value;
+            const reviewText = document.getElementById('reviewTextInput').value.trim();
+            const errorEl = document.getElementById('modalReviewError');
+            const submitBtn = document.getElementById('submitReviewBtn');
+
+            if (!reviewText) {
+                errorEl.textContent = 'Please enter your review text.';
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            try {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitting...';
+                errorEl.style.display = 'none';
+
+                await submitProjectReview(projectId, {
+                    rating: selectedRating,
+                    review_text: reviewText
+                });
+
+                closeReviewModal();
+                await loadPortalData();
+            } catch (err) {
+                errorEl.textContent = err.message || 'Failed to submit review. Please try again.';
+                errorEl.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Review';
+            }
+        };
+
+        async function loadPortalData() {
+            const loadingEl = document.getElementById('requestsLoadingState');
+            const notLoggedEl = document.getElementById('requestsNotLoggedIn');
+            const contentEl = document.getElementById('portalContent');
+            const errorEl = document.getElementById('requestsError');
+            const titleEl = document.getElementById('portalTitle');
+            const projectsContainer = document.getElementById('projectsContainer');
+            const projectsEmpty = document.getElementById('projectsEmpty');
+            const enquiriesContainer = document.getElementById('enquiriesContainer');
+            const enquiriesEmpty = document.getElementById('enquiriesEmpty');
+
+            const storedLoggedIn = isStoredUserLoggedIn() || !!getStoredToken();
+            if (!storedLoggedIn) {
+                loadingEl.style.display = 'none';
+                notLoggedEl.style.display = 'block';
+                contentEl.style.display = 'none';
+                return;
+            }
+
+            loadingEl.style.display = 'block';
+            contentEl.style.display = 'none';
+            errorEl.style.display = 'none';
+
+            try {
+                const user = await getCurrentUser();
+                if (!user) {
+                    loadingEl.style.display = 'none';
+                    notLoggedEl.style.display = 'block';
+                    return;
+                }
+
+                titleEl.textContent = `Welcome back, ${user.name || 'Client'}`;
+
+                // Fetch Projects and Enquiries in parallel
+                const [projects, enquiries] = await Promise.all([
+                    getMyProjects().catch(err => { console.warn(err); return []; }),
+                    getMySubmissions().catch(err => { console.warn(err); return []; })
+                ]);
+
+                loadingEl.style.display = 'none';
+                contentEl.style.display = 'block';
+
+                // Render Projects
+                if (!projects || projects.length === 0) {
+                    projectsEmpty.style.display = 'block';
+                    projectsContainer.innerHTML = '';
+                } else {
+                    projectsEmpty.style.display = 'none';
+                    projectsContainer.innerHTML = projects.map(proj => {
+                        let statusBadge = '';
+                        let reviewAction = '';
+
+                        if (proj.status === 'in_progress') {
+                            statusBadge = '<span class="badge badge-in-progress">⚙ In Progress</span>';
+                            reviewAction = '<div style="font-size: 0.82rem; color: #64748b; font-style: italic;">Review unlocks once delivery is marked completed by admin.</div>';
+                        } else if (proj.status === 'completed' || proj.status === 'published') {
+                            if (proj.status === 'published') {
+                                statusBadge = '<span class="badge badge-published">✓ Published in Portfolio</span>';
+                            } else {
+                                statusBadge = '<span class="badge badge-completed">✓ Completed</span>';
+                            }
+
+                            if (proj.review) {
+                                let reviewBadge = '';
+                                if (proj.review.status === 'pending') {
+                                    reviewBadge = '<span class="badge badge-pending">⏳ Review Pending Moderation</span>';
+                                } else if (proj.review.status === 'approved') {
+                                    reviewBadge = '<span class="badge badge-published">★ Verified Review Approved</span>';
+                                } else {
+                                    reviewBadge = '<span class="badge badge-rejected">Review Moderated</span>';
+                                }
+
+                                reviewAction = `
+                                    <div class="review-box">
+                                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                            <div class="stars-display">${renderStars(proj.review.rating)} (${proj.review.rating}/5)</div>
+                                            ${reviewBadge}
+                                        </div>
+                                        <div style="font-size:0.88rem; color:#334155; font-style:italic;">"${proj.review.review_text}"</div>
+                                    </div>
+                                `;
+                            } else {
+                                // No review submitted yet, show leave review prompt
+                                reviewAction = `
+                                    <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed #cbd5e1; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                                        <div style="font-size: 0.86rem; color: #047857; font-weight: 600;">✨ Work completed! Your review helps build verified portfolio trust.</div>
+                                        <button type="button" class="btn-review" onclick="openReviewModal(${proj.id}, '${proj.title.replace(/'/g, "\\'")}')">★ Leave a Review</button>
+                                    </div>
+                                `;
+                            }
+                        }
+
+                        return `
+                            <div class="card-box">
+                                <div class="card-header-flex">
+                                    <div>
+                                        <h4 class="card-title">${proj.title}</h4>
+                                        <span style="font-size: 0.82rem; font-weight: 600; color: #b45309; text-transform: uppercase;">${formatServiceName(proj.service_slug)}</span>
+                                    </div>
+                                    ${statusBadge}
+                                </div>
+                                <div class="card-meta">
+                                    <strong>Created:</strong> ${formatDate(proj.created_at)}
+                                    ${proj.completed_at ? ` &bull; <strong>Completed:</strong> ${formatDate(proj.completed_at)}` : ''}
+                                </div>
+                                ${proj.summary ? `<div class="card-body-text">${proj.summary}</div>` : ''}
+                                ${reviewAction}
+                            </div>
+                        `;
+                    }).join('');
+                }
+
+                // Render Enquiries
+                if (!enquiries || enquiries.length === 0) {
+                    enquiriesEmpty.style.display = 'block';
+                    enquiriesContainer.innerHTML = '';
+                } else {
+                    enquiriesEmpty.style.display = 'none';
+                    enquiriesContainer.innerHTML = enquiries.map(req => `
+                        <div class="card-box">
+                            <div class="card-header-flex">
+                                <h4 class="card-title">${formatServiceName(req.service_slug || req.project_type)}</h4>
+                                <span class="badge badge-in-progress">${req.status || 'Received'}</span>
+                            </div>
+                            <div class="card-meta">
+                                <strong>Submitted:</strong> ${formatDate(req.created_at)}
+                                ${req.name ? ` &bull; <strong>Name:</strong> ${req.name}` : ''}
+                            </div>
+                            ${req.message ? `<div class="card-body-text" style="background:#f8fafc; padding:10px 14px; border-radius:6px; border-left:3px solid #daa520;">${req.message}</div>` : ''}
+                        </div>
+                    `).join('');
+                }
+
+            } catch (err) {
+                loadingEl.style.display = 'none';
+                document.getElementById('requestsErrorMsg').textContent = err.message || 'Unable to load your dashboard data.';
+                errorEl.style.display = 'block';
+            }
+        }
+
+        window.loadPortalData = loadPortalData;
+        loadPortalData();
+    </script>
+</body>
+
+</html>

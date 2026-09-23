@@ -1,0 +1,2391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OM Innoventures</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=32">
+    <link rel="stylesheet" href="css/motion.css">
+
+    <link rel="preload" href="./Ring.png" as="image" crossorigin="anonymous">
+    <link rel="preload" href="./Bars.png" as="image" crossorigin="anonymous">
+    <link rel="preload" href="./M.png" as="image" crossorigin="anonymous">
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+                "gsap": "https://unpkg.com/gsap@3.12.2/index.js",
+                "gsap/ScrollTrigger": "https://unpkg.com/gsap@3.12.2/ScrollTrigger.js"
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <!-- NAV BAR -->
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="nav-brand">
+                <img src="./assets/logo-static.png" alt="OM Logo" class="brand-logo-mobile">
+                <span class="brand-om">OM</span><span class="brand-long">Innoventures</span>
+                <span class="brand-mobile-text">Innoventures</span>
+            </a>
+
+            <button class="mobile-menu-toggle" id="mobile-menu-btn" aria-label="Toggle menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12h18M3 6h18M3 18h18" />
+                </svg>
+            </button>
+
+            <div class="nav-menu" id="nav-menu">
+                <div class="mobile-menu-header">
+                    <a href="#" class="nav-brand">
+                        <img src="./assets/logo-static.png" alt="OM Logo" class="brand-logo-mobile">
+                        <span class="brand-om">OM</span><span class="brand-long">Innoventures</span>
+                        <span class="brand-mobile-text">Innoventures</span>
+                    </a>
+                    <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>
+                </div>
+                <div class="nav-links">
+                    <a href="#hero" class="nav-link-item">Home</a>
+                    <a href="#services" class="nav-link-item">Services</a>
+                    <a href="#saas-products" class="nav-link-item">SaaS Products</a>
+                    <a href="#capabilities" class="nav-link-item">Capabilities</a>
+                    <a href="#industries" class="nav-link-item">Industries</a>
+                    <a href="#about" class="nav-link-item">About</a>
+                    <a href="./technical-documents.html" class="nav-link-item">Documents</a>
+                    <a href="#cta" class="nav-link-item">Contact</a>
+                </div>
+                <div class="nav-actions">
+                    <span id="nav-auth-container" class="nav-auth-group">
+                        <a href="./login.html" class="nav-auth-link nav-auth-login">Log In</a>
+                        <a href="./signup.html" class="nav-auth-link nav-auth-signup">Sign Up</a>
+                    </span>
+                    <a href="#cta" class="btn-primary">Let's Talk</a>
+                    <script type="module">
+                        import { getCurrentUser, logout, isStoredUserLoggedIn } from "./src/auth.js";
+                        const container = document.getElementById("nav-auth-container");
+                        if (container) {
+                            function renderLoggedInNav() {
+                                container.innerHTML = `
+                                    <a href="./my-requests.html" class="nav-auth-link nav-auth-login" style="color: var(--gold-accent); font-weight: 600;">My Requests</a>
+                                    <a href="#" id="nav-logout-link" class="nav-auth-link nav-auth-signup">Log Out</a>
+                                `;
+                                document.getElementById("nav-logout-link")?.addEventListener("click", async (e) => {
+                                    e.preventDefault();
+                                    await logout().catch(() => { });
+                                    window.location.reload();
+                                });
+                            }
+
+                            if (isStoredUserLoggedIn()) {
+                                renderLoggedInNav();
+                            }
+
+                            getCurrentUser().then(user => {
+                                if (user) {
+                                    renderLoggedInNav();
+                                } else if (!isStoredUserLoggedIn()) {
+                                    container.innerHTML = `
+                                        <a href="./login.html" class="nav-auth-link nav-auth-login">Log In</a>
+                                        <a href="./signup.html" class="nav-auth-link nav-auth-signup">Sign Up</a>
+                                    `;
+                                }
+                            }).catch(() => { });
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Nav Backdrop -->
+    <div class="mobile-nav-backdrop" id="mobile-nav-backdrop"></div>
+
+    <!-- INTRO SPLASH -->
+    <section id="intro-splash">
+        <canvas id="webgl-canvas"></canvas>
+        <div class="text-overlay">
+            <div class="text-wrapper brand-text" id="company-text">
+                <div class="company-name">INNOVENTURES</div>
+                <div class="tagline">
+                    <span>&amp; Build AI technologies</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOMEPAGE CONTENT -->
+    <main id="homepage-content">
+
+        <!-- HERO -->
+        <section id="hero">
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <span class="eyebrow">INTELLIGENCE TODAY &bull; BUILDING TOMORROW</span>
+                    <h1>BUILDING <span class="intelligent">WHAT</span> MATTERS.</h1>
+                    <p>We deliver high-quality artificial intelligence solutions from concept to completion &mdash;
+                        creating models built for performance, accuracy, and lasting value.</p>
+                    <div class="hero-actions">
+                        <a href="#services" class="btn-primary">Explore Our Services</a>
+                        <a href="#cta" class="btn-outline">Start a Project</a>
+                    </div>
+                </div>
+                <div class="hero-visual" id="hero-visual-container">
+                    <img src="assets/ai_images/building_solutions.jpg" class="hero-video" id="hero-video"
+                        alt="AI Neural Core & Architecture">
+
+                    <div class="hero-annotations">
+                        <div class="annotation ann-1">
+                            <span class="ann-text">NEURAL ARCHITECTURE</span>
+                            <div class="ann-line"></div>
+                            <div class="ann-dot"></div>
+                        </div>
+                        <div class="annotation ann-2">
+                            <span class="ann-text">QUANTUM AI CORE</span>
+                            <div class="ann-line"></div>
+                            <div class="ann-dot"></div>
+                        </div>
+                        <div class="annotation ann-3">
+                            <span class="ann-text">PREDICTIVE INTELLIGENCE</span>
+                            <div class="ann-line"></div>
+                            <div class="ann-dot"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CAPABILITIES STRIP -->
+        <div id="capabilities-strip" class="ticker">
+            <div class="ticker-track">
+                <div class="ticker-group">
+                    <span class="ticker-separator">◆</span>
+                    <span class="ticker-item">MACHINE LEARNING</span>
+                    <span class="ticker-separator">◆</span>
+                    <span class="ticker-item">NATURAL LANGUAGE PROCESSING</span>
+                    <span class="ticker-separator">◆</span>
+                    <span class="ticker-item">COMPUTER VISION</span>
+                    <span class="ticker-separator">◆</span>
+                    <span class="ticker-item">PREDICTIVE ANALYTICS</span>
+                    <span class="ticker-separator">◆</span>
+                    <span class="ticker-item">DEEP LEARNING</span>
+                    <span class="ticker-separator">◆</span>
+                    <span class="ticker-item">AI CONSULTING</span>
+                    <span class="ticker-separator">◆</span>
+                    <span class="ticker-item">NEURAL NETWORKS</span>
+                    <span class="ticker-separator">◆</span>
+                    <span class="ticker-item">DATA SCIENCE</span>
+                </div>
+                <div class="ticker-group" aria-hidden="true">
+                    <span class="ticker-separator">◆</span>
+                    <span class="ticker-item">MACHINE LEARNING</span>
+                    <span class="ticker-separator">◆</span>
+                    <span class="ticker-item">NATURAL LANGUAGE PROCESSING</span>
+                    <span class="ticker-separator">◆</span>
+                    <span class="ticker-item">COMPUTER VISION</span>
+                    <span class="ticker-separator">◆</span>
+                    <span class="ticker-item">PREDICTIVE ANALYTICS</span>
+                    <span class="ticker-separator">◆</span>
+                    <span class="ticker-item">DEEP LEARNING</span>
+                    <span class="ticker-separator">◆</span>
+                    <span class="ticker-item">AI CONSULTING</span>
+                    <span class="ticker-separator">◆</span>
+                    <span class="ticker-item">NEURAL NETWORKS</span>
+                    <span class="ticker-separator">◆</span>
+                    <span class="ticker-item">DATA SCIENCE</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SERVICES -->
+        <div id="services">
+            <!-- SERVICES - WEBSITE DESIGN -->
+            <section id="services-website" class="section-gray">
+                <div class="container">
+                    <span class="eyebrow">OUR DIGITAL SERVICES</span>
+                    <h2 class="section-title reveal-up">Website Design & Development</h2>
+                    <p class="section-subtitle">Premium web platforms built for speed, conversion, and intelligence.</p>
+                    <div class="services-grid stagger-grid">
+                        <a href="services/1-page-landing-page/index.html" class="service-card compact-card"
+                            data-index="1">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/1-page-landing-page.jpg" alt="1-page Landing Page"
+                                    loading="lazy">
+                                <span class="service-card-badge-overlay">🚀 High Conversion</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">01</span>
+                                    <h3 class="service-title">1-page Landing Page</h3>
+                                </div>
+                                <p class="service-desc">Fast-loading single page optimized for targeted lead capture and
+                                    campaign ROI.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Lead Capture Layout</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Mobile First UX</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹7,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/3-5-page-business-website/index.html" class="service-card compact-card"
+                            data-index="2">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/3-5-page-business-website.jpg"
+                                    alt="3-5 page Business Website" loading="lazy">
+                                <span class="service-card-badge-overlay">⭐ Popular Choice</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">02</span>
+                                    <h3 class="service-title">3-5 page Business Website</h3>
+                                </div>
+                                <p class="service-desc">Professional multi-page corporate website showcasing your core
+                                    services and brand identity.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Custom Brand Design</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>On-Page SEO Ready</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹14,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/5-8-page-professional-website/index.html" class="service-card compact-card"
+                            data-index="3">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/5-8-page-professional-website.jpg"
+                                    alt="5-8 page Professional Website" loading="lazy">
+                                <span class="service-card-badge-overlay">🏢 Corporate Suite</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">03</span>
+                                    <h3 class="service-title">5-8 page Professional Website</h3>
+                                </div>
+                                <p class="service-desc">Comprehensive digital platform with service catalogs, team
+                                    profiles, and case studies.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Rich Portfolio & CMS</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Inquiry Routing</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹24,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/business-contactenquiry-forms/index.html" class="service-card compact-card"
+                            data-index="4">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/business-contactenquiry-forms.jpg"
+                                    alt="Business + Contact Forms" loading="lazy">
+                                <span class="service-card-badge-overlay">📋 Smart Forms</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">04</span>
+                                    <h3 class="service-title">Business + Contact Forms</h3>
+                                </div>
+                                <p class="service-desc">Interactive business site with multi-step conditional inquiry
+                                    forms and CRM syncing.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Conditional Logic</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Spam Filtration</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹29,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/dynamic-business-website/index.html" class="service-card compact-card"
+                            data-index="5">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/dynamic-business-website.jpg"
+                                    alt="Dynamic Business Website" loading="lazy">
+                                <span class="service-card-badge-overlay">⚡ Database Driven</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">05</span>
+                                    <h3 class="service-title">Dynamic Business Website</h3>
+                                </div>
+                                <p class="service-desc">Content-managed web portal with database integration, user
+                                    accounts, and admin dashboard.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Headless CMS</span><span class="service-tag"><svg width="12" height="12"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Client Portal Auth</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹39,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/e-commerce-website/index.html" class="service-card compact-card"
+                            data-index="6">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/e-commerce-website.jpg" alt="E-commerce Website"
+                                    loading="lazy">
+                                <span class="service-card-badge-overlay">🛍️ Full Storefront</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">06</span>
+                                    <h3 class="service-title">E-commerce Website</h3>
+                                </div>
+                                <p class="service-desc">Digital storefront complete with payment gateway, product
+                                    inventory, and cart checkout.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Payment Gateway</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Order Management</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹49,999+</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/advanced-e-commerce/index.html" class="service-card compact-card"
+                            data-index="7">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/advanced-e-commerce.jpg" alt="Advanced E-commerce"
+                                    loading="lazy">
+                                <span class="service-card-badge-overlay">💎 High Volume</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">07</span>
+                                    <h3 class="service-title">Advanced E-commerce</h3>
+                                </div>
+                                <p class="service-desc">Enterprise commerce engine built for large inventories,
+                                    multi-currency, and ERP syncing.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Multi-Currency</span><span class="service-tag"><svg width="12" height="12"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>AI Recommendations</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹74,999+</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/custom-web-application/index.html" class="service-card compact-card"
+                            data-index="8">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/custom-web-application.jpg"
+                                    alt="Custom Web Application" loading="lazy">
+                                <span class="service-card-badge-overlay">⚙️ Custom Software</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">08</span>
+                                    <h3 class="service-title">Custom Web Application</h3>
+                                </div>
+                                <p class="service-desc">Bespoke browser application built for complex business logic and
+                                    reactive workflows.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>React / Next.js SPA</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Scalable Backend API</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹99,999+</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/ai-powered-website/index.html" class="service-card compact-card"
+                            data-index="9">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/ai-powered-website.jpg" alt="AI-powered Website"
+                                    loading="lazy">
+                                <span class="service-card-badge-overlay">🤖 AI Embedded</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">09</span>
+                                    <h3 class="service-title">AI-powered Website</h3>
+                                </div>
+                                <p class="service-desc">Intelligent website augmented with AI conversational search and
+                                    visitor personalization.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>AI Chat Assistant</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Smart Search Engine</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹74,999+</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/ai-web-application/index.html" class="service-card compact-card"
+                            data-index="10">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/ai-web-application.jpg" alt="AI Web Application"
+                                    loading="lazy">
+                                <span class="service-card-badge-overlay">🧠 Deep Intelligence</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">10</span>
+                                    <h3 class="service-title">AI Web Application</h3>
+                                </div>
+                                <p class="service-desc">Software platform powered by custom LLMs, computer vision, and
+                                    machine learning pipelines.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Custom LLM Pipeline</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Live Data Visuals</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹1,49,999+</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/custom-saasweb-platform/index.html" class="service-card compact-card"
+                            data-index="11">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/custom-saasweb-platform.jpg"
+                                    alt="Custom SaaS/Web Platform" loading="lazy">
+                                <span class="service-card-badge-overlay">☁️ Multi-Tenant</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">11</span>
+                                    <h3 class="service-title">Custom SaaS/Web Platform</h3>
+                                </div>
+                                <p class="service-desc">Production cloud SaaS with recurring subscription billing, user
+                                    teams, and APIs.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Stripe Subscriptions</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Multi-Tenant Cloud</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹2,49,999+</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/full-stack-development/index.html" class="service-card compact-card"
+                            data-index="12">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/full-stack-development.jpg"
+                                    alt="Full Stack Development" loading="lazy">
+                                <span class="service-card-badge-overlay">⚡ End-to-End Stack</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">12</span>
+                                    <h3 class="service-title">Full Stack Development</h3>
+                                </div>
+                                <p class="service-desc">Complete web, mobile & cloud software from reactive frontends to high-throughput backend APIs.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>React & Next.js</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>FastAPI & Node.js</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹1,49,999+</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SERVICES - DATA & AI -->
+            <section id="services-ai" class="section-gray"
+                style="background-color: var(--dark-bg); color: var(--text-light);">
+                <div class="container">
+                    <span class="eyebrow">OUR INTELLIGENCE SERVICES</span>
+                    <h2 class="section-title reveal-up" style="color: var(--gold-accent);">Data Analytics & Data Scientist & AI Solutions
+                    </h2>
+                    <p class="section-subtitle" style="color: #999;">Advanced machine learning, predictive analytics,
+                        and automated AI agents.</p>
+                    <div class="services-grid stagger-grid">
+                        <a href="services/excel-data-cleaning/index.html" class="service-card compact-card"
+                            data-index="1">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/excel-data-cleaning.jpg" alt="Excel Data Cleaning"
+                                    loading="lazy">
+                                <span class="service-card-badge-overlay">🧹 Data Hygiene</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">01</span>
+                                    <h3 class="service-title">Excel Data Cleaning</h3>
+                                </div>
+                                <p class="service-desc">Sanitize messy spreadsheets, remove duplicates, and normalize
+                                    structured data.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Deduplication</span><span class="service-tag"><svg width="12" height="12"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Format Standardizing</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹4,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/excel-data-analysis/index.html" class="service-card compact-card"
+                            data-index="2">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/excel-data-analysis.jpg" alt="Excel Data Analysis"
+                                    loading="lazy">
+                                <span class="service-card-badge-overlay">📊 Deep Insights</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">02</span>
+                                    <h3 class="service-title">Excel Data Analysis</h3>
+                                </div>
+                                <p class="service-desc">Advanced spreadsheet modeling with pivot formulas, KPI charts,
+                                    and metrics.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Pivot Modeling</span><span class="service-tag"><svg width="12" height="12"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Executive Summary</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹7,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/excel-automation/index.html" class="service-card compact-card" data-index="3">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/excel-automation.jpg" alt="Excel Automation"
+                                    loading="lazy">
+                                <span class="service-card-badge-overlay">⚡ Auto Workflows</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">03</span>
+                                    <h3 class="service-title">Excel Automation</h3>
+                                </div>
+                                <p class="service-desc">Automated reporting pipelines utilizing custom VBA macros and
+                                    Power Query.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>VBA Macros</span><span class="service-tag"><svg width="12" height="12"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Power Query ETL</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹9,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/sql-data-analysis/index.html" class="service-card compact-card"
+                            data-index="4">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/sql-data-analysis.jpg" alt="SQL Data Analysis"
+                                    loading="lazy">
+                                <span class="service-card-badge-overlay">🗄️ SQL Architecture</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">04</span>
+                                    <h3 class="service-title">SQL Data Analysis</h3>
+                                </div>
+                                <p class="service-desc">Relational database queries, multi-table aggregations, and
+                                    business intelligence.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Complex SQL JOINs</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Query Optimization</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹9,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/power-bi-dashboard/index.html" class="service-card compact-card"
+                            data-index="5">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/power-bi-dashboard.jpg" alt="Power BI Dashboard"
+                                    loading="lazy">
+                                <span class="service-card-badge-overlay">📈 Live Dashboards</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">05</span>
+                                    <h3 class="service-title">Power BI Dashboard</h3>
+                                </div>
+                                <p class="service-desc">Interactive visual dashboards with live KPI tracking and dynamic
+                                    drill-downs.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Interactive Charts</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Multi-Source Sync</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹12,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/advanced-power-bi-dashboard/index.html" class="service-card compact-card"
+                            data-index="6">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/advanced-power-bi-dashboard.jpg"
+                                    alt="Advanced Power BI Dashboard" loading="lazy">
+                                <span class="service-card-badge-overlay">🏛️ Enterprise BI</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">06</span>
+                                    <h3 class="service-title">Advanced Power BI Dashboard</h3>
+                                </div>
+                                <p class="service-desc">Enterprise BI with advanced DAX measures, row-level security,
+                                    and auto refresh.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>DAX Time-Series</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Row-Level Security</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹19,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/python-data-analysis/index.html" class="service-card compact-card"
+                            data-index="7">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/python-data-analysis.jpg" alt="Python Data Analysis"
+                                    loading="lazy">
+                                <span class="service-card-badge-overlay">🐍 Python Science</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">07</span>
+                                    <h3 class="service-title">Python Data Analysis</h3>
+                                </div>
+                                <p class="service-desc">Exploratory data analysis utilizing Pandas, NumPy, and
+                                    statistical visualizations.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Pandas & NumPy</span><span class="service-tag"><svg width="12" height="12"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Statistical Visuals</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹14,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/python-sql-analytics/index.html" class="service-card compact-card"
+                            data-index="8">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/python-sql-analytics.jpg" alt="Python + SQL Analytics"
+                                    loading="lazy">
+                                <span class="service-card-badge-overlay">🔗 Full Pipeline</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">08</span>
+                                    <h3 class="service-title">Python + SQL Analytics</h3>
+                                </div>
+                                <p class="service-desc">End-to-end data pipeline extracting SQL records into Python
+                                    analytics models.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Automated ETL</span><span class="service-tag"><svg width="12" height="12"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Algorithm Reports</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹19,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/businessdata-analytics/index.html" class="service-card compact-card"
+                            data-index="9">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/businessdata-analytics.jpg"
+                                    alt="Business/Data Analytics" loading="lazy">
+                                <span class="service-card-badge-overlay">🎯 Strategy & KPIs</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">09</span>
+                                    <h3 class="service-title">Business/Data Analytics</h3>
+                                </div>
+                                <p class="service-desc">Strategic business intelligence consulting aligning metrics with
+                                    commercial growth.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>KPI Blueprint</span><span class="service-tag"><svg width="12" height="12"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Data Governance</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹24,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/sales-analytics/index.html" class="service-card compact-card" data-index="10">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/sales-analytics.jpg" alt="Sales Analytics"
+                                    loading="lazy">
+                                <span class="service-card-badge-overlay">💰 Revenue Growth</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">10</span>
+                                    <h3 class="service-title">Sales Analytics</h3>
+                                </div>
+                                <p class="service-desc">Sales pipeline conversion tracking, rep performance, and revenue
+                                    forecasting.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Conversion Funnel</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Revenue Forecast</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹14,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/hr-analytics/index.html" class="service-card compact-card" data-index="11">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/hr-analytics.jpg" alt="HR Analytics" loading="lazy">
+                                <span class="service-card-badge-overlay">👥 Talent Metrics</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">11</span>
+                                    <h3 class="service-title">HR Analytics</h3>
+                                </div>
+                                <p class="service-desc">Workforce intelligence covering retention rates, hiring
+                                    velocity, and compensation.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Attrition Model</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Hiring Analytics</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹14,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/financial-analytics/index.html" class="service-card compact-card"
+                            data-index="12">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/financial-analytics.jpg" alt="Financial Analytics"
+                                    loading="lazy">
+                                <span class="service-card-badge-overlay">📑 Fiscal Modeling</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">12</span>
+                                    <h3 class="service-title">Financial Analytics</h3>
+                                </div>
+                                <p class="service-desc">Three-statement modeling, unit economics analysis, and cash
+                                    runway projections.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Cash Runway Model</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Variance Tracking</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹19,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/construction-analytics/index.html" class="service-card compact-card"
+                            data-index="13">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/construction-analytics.jpg"
+                                    alt="Construction Analytics" loading="lazy">
+                                <span class="service-card-badge-overlay">🏗️ Construction BI</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">13</span>
+                                    <h3 class="service-title">Construction Analytics</h3>
+                                </div>
+                                <p class="service-desc">Site analytics tracking material costs, contractor billing, and
+                                    project milestones.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>BOQ Cost Variance</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Milestone Alerts</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹19,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/predictive-analytics/index.html" class="service-card compact-card"
+                            data-index="14">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/predictive-analytics.jpg" alt="Predictive Analytics"
+                                    loading="lazy">
+                                <span class="service-card-badge-overlay">🔮 Forecast Models</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">14</span>
+                                    <h3 class="service-title">Predictive Analytics</h3>
+                                </div>
+                                <p class="service-desc">Machine learning models forecasting customer churn, demand, and
+                                    market trends.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Time-Series ML</span><span class="service-tag"><svg width="12" height="12"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Demand Estimation</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹34,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/machine-learning-model/index.html" class="service-card compact-card"
+                            data-index="15">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/machine-learning-model.jpg"
+                                    alt="Machine Learning Model" loading="lazy">
+                                <span class="service-card-badge-overlay">🤖 Custom ML</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">15</span>
+                                    <h3 class="service-title">Machine Learning Model</h3>
+                                </div>
+                                <p class="service-desc">Supervised and unsupervised models custom trained on proprietary
+                                    enterprise data.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Scikit/XGBoost</span><span class="service-tag"><svg width="12" height="12"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Accuracy Audits</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹39,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/advanced-ml-project/index.html" class="service-card compact-card"
+                            data-index="16">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/advanced-ml-project.jpg" alt="Advanced ML Project"
+                                    loading="lazy">
+                                <span class="service-card-badge-overlay">🔬 Deep Learning</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">16</span>
+                                    <h3 class="service-title">Advanced ML Project</h3>
+                                </div>
+                                <p class="service-desc">Deep neural network architectures and ensemble algorithms for
+                                    complex predictions.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Neural Networks</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Hyperparameter Opt</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹59,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/ml-api-deployment/index.html" class="service-card compact-card"
+                            data-index="17">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/ml-api-deployment.jpg" alt="ML + API Deployment"
+                                    loading="lazy">
+                                <span class="service-card-badge-overlay">🚀 Cloud Deployment</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">17</span>
+                                    <h3 class="service-title">ML + API Deployment</h3>
+                                </div>
+                                <p class="service-desc">Containerized low-latency REST and FastAPI endpoints deployed to
+                                    AWS / GCP.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>FastAPI / Docker</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Auto-Scaling Cloud</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹74,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/ai-chatbot/index.html" class="service-card compact-card" data-index="18">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/ai-chatbot.jpg" alt="AI Chatbot" loading="lazy">
+                                <span class="service-card-badge-overlay">💬 Conversational AI</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">18</span>
+                                    <h3 class="service-title">AI Chatbot</h3>
+                                </div>
+                                <p class="service-desc">Autonomous 24/7 support agents trained on business FAQs and
+                                    internal knowledge.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Custom FAQs Memory</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Multi-Channel Web</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹49,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/airag-knowledge-assistant/index.html" class="service-card compact-card"
+                            data-index="19">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/airag-knowledge-assistant.jpg" alt="AI/RAG Assistant"
+                                    loading="lazy">
+                                <span class="service-card-badge-overlay">🧠 Enterprise RAG</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">19</span>
+                                    <h3 class="service-title">AI/RAG Assistant</h3>
+                                </div>
+                                <p class="service-desc">Retrieval-Augmented Generation assistant connected to internal
+                                    documents & PDFs.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Vector Database</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Verifiable Citations</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹69,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/ai-business-automation/index.html" class="service-card compact-card"
+                            data-index="20">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/ai-business-automation.jpg"
+                                    alt="AI Business Automation" loading="lazy">
+                                <span class="service-card-badge-overlay">⚙️ Automation Ops</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">20</span>
+                                    <h3 class="service-title">AI Business Automation</h3>
+                                </div>
+                                <p class="service-desc">Autonomous AI workflows extracting invoice data, routing
+                                    tickets, and triggering tasks.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Document OCR</span><span class="service-tag"><svg width="12" height="12"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Webhook Triggers</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹59,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/ai-ml-custom-solution/index.html" class="service-card compact-card"
+                            data-index="21">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/ai-ml-custom-solution.jpg"
+                                    alt="AI + ML Custom Solution" loading="lazy">
+                                <span class="service-card-badge-overlay">💎 Bespoke AI</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">21</span>
+                                    <h3 class="service-title">AI + ML Custom Solution</h3>
+                                </div>
+                                <p class="service-desc">Tailor-made machine learning engine engineered for proprietary
+                                    enterprise bottlenecks.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Custom Algorithms</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Dedicated IP</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹99,999+</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/custom-dataai-software/index.html" class="service-card compact-card"
+                            data-index="22">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/custom-dataai-software.jpg"
+                                    alt="Custom Data/AI Software" loading="lazy">
+                                <span class="service-card-badge-overlay">🏢 Enterprise Engine</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">22</span>
+                                    <h3 class="service-title">Custom Data/AI Software</h3>
+                                </div>
+                                <p class="service-desc">Centralized enterprise data & AI analytics platform with role
+                                    permissions.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Centralized Hub</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Role Governance</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">₹1,49,999+</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SERVICES - ACCOUNTING -->
+            <section id="services-accounting" class="section-gray">
+                <div class="container">
+                    <span class="eyebrow">OUR ASSURANCE SERVICES</span>
+                    <h2 class="section-title reveal-up">Accounting & Auditing</h2>
+                    <p class="section-subtitle">Precise financial management, compliance, and auditing services
+                        delivered by qualified professionals.</p>
+                    <div class="services-grid stagger-grid">
+                        <a href="services/accounting/index.html" class="service-card compact-card" data-index="1">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/accounting.jpg" alt="Accounting" loading="lazy">
+                                <span class="service-card-badge-overlay">📚 Full Bookkeeping</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">01</span>
+                                    <h3 class="service-title">Accounting</h3>
+                                </div>
+                                <p class="service-desc">Day-to-day ledger bookkeeping, GST filing, and monthly P&L
+                                    statements by qualified CAs.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Ledger & GST Filing</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Monthly P&L Statements</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">Starting ₹4,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/auditing/index.html" class="service-card compact-card" data-index="2">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/auditing.jpg" alt="Auditing" loading="lazy">
+                                <span class="service-card-badge-overlay">🔍 Statutory Audit</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">02</span>
+                                    <h3 class="service-title">Auditing</h3>
+                                </div>
+                                <p class="service-desc">Statutory and internal audits verifying controls, tax
+                                    compliance, and risk mitigation.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Statutory Certification</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Internal Controls</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">Starting ₹19,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/audit-accounting/index.html" class="service-card compact-card" data-index="3">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/audit-accounting.jpg" alt="Audit + Accounting"
+                                    loading="lazy">
+                                <span class="service-card-badge-overlay">⭐ Combined Suite</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">03</span>
+                                    <h3 class="service-title">Audit + Accounting</h3>
+                                </div>
+                                <p class="service-desc">Dual package delivering year-round bookkeeping with annual
+                                    statutory auditing.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Year-Round Accounts</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Statutory Tax Audit</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">Starting ₹49,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="services/corporate-audit-accounting/index.html" class="service-card compact-card"
+                            data-index="4">
+                            <div class="service-card-media">
+                                <img src="assets/services/unique/corporate-audit-accounting.jpg"
+                                    alt="Corporate Audit & Accounting" loading="lazy">
+                                <span class="service-card-badge-overlay">🏛️ Corporate Advisory</span>
+                            </div>
+                            <div class="service-card-body">
+                                <div class="service-card-top">
+                                    <span class="service-number">04</span>
+                                    <h3 class="service-title">Corporate Audit & Accounting</h3>
+                                </div>
+                                <p class="service-desc">Enterprise CFO advisory, multi-entity consolidation, and
+                                    board-level financial reports.</p>
+                                <div class="service-tags-row">
+                                    <span class="service-tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Multi-Entity Books</span><span class="service-tag"><svg width="12"
+                                            height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2.5">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>Virtual CFO Advisory</span>
+                                </div>
+                                <div class="service-card-footer">
+                                    <div class="service-price-block">
+                                        <span class="price-label">INVESTMENT</span>
+                                        <span class="price-value">Starting ₹99,999</span>
+                                    </div>
+                                    <span class="service-cta-btn">
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+    </main>
+    </div>
+
+    <!-- ENGINEERING CAPABILITIES -->
+    <section id="capabilities" class="section-dark">
+        <div class="container">
+            <div class="capabilities-header">
+                <span class="eyebrow">OUR AI CAPABILITIES</span>
+                <h2 class="section-title reveal-up">Built with precision.</h2>
+                <p class="section-subtitle">Proven AI methods and machine learning standards behind every
+                    project.</p>
+            </div>
+
+            <div class="tech-editorial">
+                <div class="tech-column">
+                    <div class="tech-group">
+                        <h3>AI SYSTEMS</h3>
+                        <ul class="tech-list">
+                            <li>Machine Learning</li>
+                            <li>Deep Learning</li>
+                            <li>Neural Networks</li>
+                        </ul>
+                    </div>
+                    <div class="tech-group">
+                        <h3>QUALITY &amp; COMPLIANCE</h3>
+                        <ul class="tech-list">
+                            <li>Data Privacy Laws</li>
+                            <li>AI Ethics Standards</li>
+                            <li>Model Fairness</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tech-column">
+                    <div class="tech-group">
+                        <h3>PROJECT DELIVERY</h3>
+                        <ul class="tech-list">
+                            <li>Agile Development</li>
+                            <li>MLOps Pipelines</li>
+                            <li>Cloud Deployment</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tech-column">
+                    <div class="tech-group">
+                        <h3>SUSTAINABILITY</h3>
+                        <ul class="tech-list">
+                            <li>Efficient Computing</li>
+                            <li>Model Optimization</li>
+                            <li>Hardware Acceleration</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INDUSTRIES -->
+    <section id="industries">
+        <div class="container">
+            <span class="eyebrow">INDUSTRIES WE SERVE</span>
+            <h2 class="section-title reveal-up">Building across every sector.</h2>
+
+            <div class="industries-grid">
+                <div class="industry-item">
+                    <h3>HEALTHCARE</h3>
+                </div>
+                <div class="industry-item">
+                    <h3>FINANCE</h3>
+                </div>
+                <div class="industry-item">
+                    <h3>E-COMMERCE</h3>
+                </div>
+                <div class="industry-item">
+                    <h3>MANUFACTURING</h3>
+                </div>
+                <div class="industry-item">
+                    <h3>EDUCATION</h3>
+                </div>
+                <div class="industry-item">
+                    <h3>LOGISTICS</h3>
+                </div>
+                <div class="industry-item">
+                    <h3>CYBERSECURITY</h3>
+                </div>
+                <div class="industry-item">
+                    <h3>PUBLIC SECTOR</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SAAS PRODUCTS -->
+    <section id="saas-products" class="saas-section">
+        <!-- Background decorative elements -->
+        <div class="saas-bg-grid"></div>
+        <div class="saas-glow saas-glow-left"></div>
+        <div class="saas-glow saas-glow-right"></div>
+
+        <div class="container">
+            <!-- Header -->
+            <div class="saas-header reveal-up">
+                <span class="saas-eyebrow">
+                    <span class="saas-live-dot"></span>
+                    OUR FLAGSHIP PRODUCTS
+                </span>
+                <h2 class="saas-title">SaaS <span class="saas-title-accent">Solutions</span></h2>
+                <p class="saas-subtitle">Powerful, AI-driven platforms currently transforming industries — built by OM
+                    Innoventures.</p>
+            </div>
+
+            <!-- Cards Grid -->
+            <div class="saas-cards-grid">
+
+                <!-- ── Card 1: Sentinel AI ── -->
+                <a href="https://sentinalguardai.lovable.app/" target="_blank" rel="noopener"
+                    class="saas-card reveal-up">
+                    <!-- Glow border effect -->
+                    <div class="saas-card-glow"></div>
+
+                    <!-- Image -->
+                    <div class="saas-card-img-wrap">
+                        <img src="assets/saas/sentinel.jpg" alt="Sentinel AI Platform" class="saas-card-img">
+                        <div class="saas-card-img-overlay"></div>
+                        <div class="saas-card-live-badge">
+                            <span class="saas-live-dot"></span> Live Platform
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="saas-card-body">
+                        <div class="saas-card-meta">
+                            <span class="saas-tag">🛡️ AI Security</span>
+                            <span class="saas-tag">📍 GPS Tracking</span>
+                            <span class="saas-tag">✅ QR Verify</span>
+                        </div>
+                        <h3 class="saas-card-title">Sentinel <span>AI</span></h3>
+                        <p class="saas-card-desc">AI-powered workforce monitoring platform with real-time GPS tracking,
+                            QR code verification, and intelligent attendance analytics — built for modern enterprises.
+                        </p>
+                        <div class="saas-card-footer">
+                            <div class="saas-card-stats">
+                                <div class="saas-stat">
+                                    <span class="saas-stat-num">Real-Time</span>
+                                    <span class="saas-stat-label">GPS Tracking</span>
+                                </div>
+                                <div class="saas-stat">
+                                    <span class="saas-stat-num">QR</span>
+                                    <span class="saas-stat-label">Verification</span>
+                                </div>
+                                <div class="saas-stat">
+                                    <span class="saas-stat-num">AI</span>
+                                    <span class="saas-stat-label">Analytics</span>
+                                </div>
+                            </div>
+                            <div class="saas-card-cta">
+                                Visit Platform <span class="saas-arrow">→</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- ── Card 2: StayHub ── -->
+                <a href="https://stayhub-ai.lovable.app/" target="_blank" rel="noopener" class="saas-card reveal-up">
+                    <div class="saas-card-glow"></div>
+
+                    <div class="saas-card-img-wrap">
+                        <img src="assets/saas/stayhub.jpg" alt="StayHub PG Management" class="saas-card-img">
+                        <div class="saas-card-img-overlay"></div>
+                        <div class="saas-card-live-badge">
+                            <span class="saas-live-dot"></span> Live Platform
+                        </div>
+                    </div>
+
+                    <div class="saas-card-body">
+                        <div class="saas-card-meta">
+                            <span class="saas-tag">🏠 PG Management</span>
+                            <span class="saas-tag">💳 Rent Tracking</span>
+                            <span class="saas-tag">📊 Dashboard</span>
+                        </div>
+                        <h3 class="saas-card-title">Stay<span>Hub</span></h3>
+                        <p class="saas-card-desc">Smart PG & rental property management platform — run your properties,
+                            track rent, manage tenants, and get AI-powered insights from anywhere, anytime.</p>
+                        <div class="saas-card-footer">
+                            <div class="saas-card-stats">
+                                <div class="saas-stat">
+                                    <span class="saas-stat-num">Smart</span>
+                                    <span class="saas-stat-label">Automation</span>
+                                </div>
+                                <div class="saas-stat">
+                                    <span class="saas-stat-num">Multi</span>
+                                    <span class="saas-stat-label">Bank Accounts</span>
+                                </div>
+                                <div class="saas-stat">
+                                    <span class="saas-stat-num">AI</span>
+                                    <span class="saas-stat-label">Insights</span>
+                                </div>
+                            </div>
+                            <div class="saas-card-cta">
+                                Visit Platform <span class="saas-arrow">→</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+            </div><!-- /.saas-cards-grid -->
+        </div>
+    </section>
+
+    <!-- SELECTED WORK / VERIFIED CLIENT PROJECTS -->
+    <section id="work" class="section-gray">
+        <div class="container">
+            <span class="eyebrow">PORTFOLIO &amp; VERIFIED REVIEWS</span>
+            <h2 class="section-title reveal-up">Our Projects.</h2>
+            <p class="section-subtitle" style="max-width: 680px; margin-bottom: 36px;">
+                Real client projects delivered by OM Innoventures, paired directly with authentic client reviews and
+                ratings.
+            </p>
+
+            <div id="publishedProjectsContainer" class="work-grid"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+                <!-- Dynamically populated from GET /api/v1/projects/published -->
+            </div>
+        </div>
+    </section>
+
+
+    <!-- OM Innoventures & Build AI technologies -->
+    <section id="engineering" class="section-dark">
+        <div class="container">
+            <div class="engineering-layout">
+                <div class="engineering-left">
+                    <span class="eyebrow">OM INNOVENTURES AI CONSULTANTS</span>
+                    <h2 class="section-title reveal-up">Intelligence &amp; AI Environments</h2>
+                    <p class="section-subtitle">Intelligence excellence built on trust. We provide precise, scalable
+                        machine learning and AI services.</p>
+                    <a href="#cta" class="btn-primary"
+                        style="background-color: var(--gold-accent); color: var(--navy-primary);">Work With Us</a>
+                </div>
+                <div class="engineering-right">
+                    <div class="s-grid">
+                        <div class="-item">
+                            <div class="icon"></div><span>NATURAL LANGUAGE PROCESSING</span>
+                        </div>
+                        <div class="-item">
+                            <div class="icon"></div><span>COMPUTER VISION</span>
+                        </div>
+                        <div class="-item">
+                            <div class="icon"></div><span>MACHINE LEARNING</span>
+                        </div>
+                        <div class="-item">
+                            <div class="icon"></div><span>PROJECT PLANNING &amp; MANAGEMENT</span>
+                        </div>
+                        <div class="-item">
+                            <div class="icon"></div><span>DEEP LEARNING</span>
+                        </div>
+                        <div class="-item">
+                            <div class="icon"></div><span>GEOTECHNICAL SOIL INVESTIGATION</span>
+                        </div>
+                        <div class="-item">
+                            <div class="icon"></div><span>MEP DESIGN</span>
+                        </div>
+                        <div class="-item">
+                            <div class="icon"></div><span>NEURAL NETWORKS</span>
+                        </div>
+                        <div class="-item">
+                            <div class="icon"></div><span>GENERATIVE AI</span>
+                        </div>
+                        <div class="-item">
+                            <div class="icon"></div><span>QUANTITY ESTIMATION &amp; COSTING</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY OM Innoventures & Build AI technologies -->
+    <section id="why">
+        <div class="container">
+            <span class="eyebrow">WHY OM INNOVENTURES</span>
+            <h2 class="section-title reveal-up">Built on excellence.</h2>
+
+            <div class="values-grid">
+                <div class="value-item">
+                    <h3 class="value-title">PRECISION</h3>
+                    <p class="value-desc">IN DETAIL</p>
+                </div>
+                <div class="value-item">
+                    <h3 class="value-title">INTELLIGENCE</h3>
+                    <p class="value-desc">DRIVEN BY DATA</p>
+                </div>
+                <div class="value-item">
+                    <h3 class="value-title">INNOVATION</h3>
+                    <p class="value-desc">DRIVEN BY DESIGN</p>
+                </div>
+                <div class="value-item">
+                    <h3 class="value-title">QUALITY</h3>
+                    <p class="value-desc">ASSURED ALWAYS</p>
+                </div>
+                <div class="value-item">
+                    <h3 class="value-title">COMMITMENT</h3>
+                    <p class="value-desc">TO EXCELLENCE</p>
+                </div>
+                <div class="value-item">
+                    <h3 class="value-title">IMPACT</h3>
+                    <p class="value-desc">THAT MATTERS</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FULL-SCREEN RECTANGULAR METRICS SECTION -->
+    <!-- METRICS BENCHMARK SECTION -->
+    <section id="metrics-strip" class="metrics-strip-section">
+        <div class="container">
+            <div class="metrics-header-row">
+                <div class="metrics-badge">
+                    <span>PERFORMANCE BENCHMARK</span>
+                </div>
+                <div class="metrics-subtitle">Real-Time Execution &amp; Accuracy Tracking</div>
+            </div>
+
+            <div class="metrics-grid three-col">
+                <!-- 1: OUR PROJECTS -->
+                <div class="metric-pop-item" data-delay="0">
+                    <div class="metric-number-row">
+                        <span class="metric-num counter-scramble" data-target="37" data-decimals="0"
+                            data-suffix="+">0</span>
+                    </div>
+                    <span class="metric-label">Our Projects &amp; Solutions</span>
+                    <div class="metric-bar-track">
+                        <div class="metric-bar-fill" data-fill="100%"></div>
+                    </div>
+                </div>
+
+                <!-- 2: COMPLETED -->
+                <div class="metric-pop-item" data-delay="100">
+                    <div class="metric-number-row">
+                        <span class="metric-num counter-scramble" data-target="100" data-decimals="0"
+                            data-suffix="%">0%</span>
+                    </div>
+                    <span class="metric-label">Completed &amp; Delivered</span>
+                    <div class="metric-bar-track">
+                        <div class="metric-bar-fill" data-fill="100%"></div>
+                    </div>
+                </div>
+
+                <!-- 3: ACCURACY -->
+                <div class="metric-pop-item" data-delay="200">
+                    <div class="metric-number-row">
+                        <span class="metric-num counter-scramble" data-target="99.85" data-decimals="2"
+                            data-suffix="%">0.00%</span>
+                    </div>
+                    <span class="metric-label">Accuracy Benchmark</span>
+                    <div class="metric-bar-track">
+                        <div class="metric-bar-fill" data-fill="99.85%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section-gray">
+        <div class="container">
+            <span class="eyebrow">ABOUT OM INNOVENTURES</span>
+            <h2 class="section-title reveal-up">Where intelligence meets execution.</h2>
+            <div class="about-content">
+                <p>OM Innoventures brings cutting-edge AI research, thoughtful
+                    model design, and disciplined deployment execution together to deliver solutions built for
+                    performance,
+                    accuracy, and lasting value.</p>
+            </div>
+
+            <!-- FOUNDER PROFILE -->
+            <div class="founder-profile">
+                <div class="founder-image-col">
+                    <div class="founder-image-placeholder">
+                        <img src="assets/founder/kishor-kumar-a.jpg" alt="Kishor Kumar A - Founder &amp; MD"
+                            class="founder-img-cropped">
+                    </div>
+                </div>
+                <div class="founder-info-col">
+                    <div class="founder-accent-line"></div>
+                    <span class="eyebrow">MEET THE FOUNDER</span>
+                    <h3 class="founder-name">Kishor Kumar A</h3>
+                    <p class="founder-title"><span>Founder &amp; MD</span></p>
+
+                    <div class="founder-roles">
+                        BE Civil Engineer / Senior Architect / Data Analyst
+                    </div>
+
+                    <div class="founder-desc">
+                        <p>Combining structural expertise with architectural vision and data-driven insights to deliver
+                            precision engineering and premium built-environments.</p>
+                    </div>
+
+                    <div class="founder-contact">
+                        <div class="founder-contact-item">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <span>Basaveshwaranagar, Bengaluru</span>
+                        </div>
+                        <div class="founder-contact-item">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                </path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            <a href="mailto:omengineeringconsultants06@gmail.com"
+                                class="founder-email">omengineeringconsultants06@gmail.com</a>
+                        </div>
+                        <div class="founder-contact-item" style="margin-top: 8px;">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                                </path>
+                            </svg>
+                            <a href="tel:+918310160257" class="founder-email"
+                                style="text-decoration: none; color: var(--navy-primary);">+91 831 016 0257</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta" class="section-dark">
+        <div class="container">
+            <div class="cta-content">
+                <span class="eyebrow">HAVE SOMETHING WORTH BUILDING?</span>
+                <h2 class="section-title reveal-up">Tell Us About Your Project</h2>
+                <p class="section-subtitle"
+                    style="max-width: 660px; margin: 0 auto 32px; color: rgba(255, 255, 255, 0.75); font-size: 1.05rem; line-height: 1.6;">
+                    Share your ideas, requirements, or drawings. Our senior engineering and architectural team will
+                    review your project scope and provide a dedicated consultation with an indicative estimate.
+                </p>
+
+                <div class="global-enquiry-card" id="global-enquiry-box">
+                    <div class="global-enquiry-header">
+                        <div class="service-enquiry-badge">PROJECT CONSULTATION ENQUIRY</div>
+                        <h3 class="global-enquiry-title">Start Your Project Consultation</h3>
+                        <p class="global-enquiry-subtitle">Fill out the details below and our senior engineering
+                            team will connect with you within 24 hours.</p>
+                    </div>
+                    <form class="global-enquiry-form" id="global-enquiry-form" action="javascript:void(0);"
+                        method="POST">
+                        <div class="global-enquiry-row">
+                            <div class="global-enquiry-field">
+                                <label for="ge-name">Your Full Name</label>
+                                <input type="text" id="ge-name" name="name" required placeholder="e.g. Rahul Sharma"
+                                    class="global-enquiry-input" autocomplete="name" />
+                            </div>
+                            <div class="global-enquiry-field">
+                                <label for="ge-email">Email Address</label>
+                                <input type="email" id="ge-email" name="email" required placeholder="name@example.com"
+                                    class="global-enquiry-input" autocomplete="email" />
+                            </div>
+                        </div>
+                        <div class="global-enquiry-row">
+                            <div class="global-enquiry-field">
+                                <label for="ge-phone">Phone / WhatsApp</label>
+                                <input type="tel" id="ge-phone" name="phone" required placeholder="+91 98765 43210"
+                                    class="global-enquiry-input" autocomplete="tel" />
+                            </div>
+                            <div class="global-enquiry-field">
+                                <label for="ge-service">Service of Primary Interest</label>
+                                <select id="ge-service" name="service_slug" required class="global-enquiry-select">
+                                    <option value="general-inquiry">General Consultation & Strategy</option>
+                                    <option value="1-page-landing-page">1 Page Landing Page</option>
+                                    <option value="3-5-page-business-website">3 5 Page Business Website</option>
+                                    <option value="5-8-page-professional-website">5 8 Page Professional Website</option>
+                                    <option value="accounting">Accounting</option>
+                                    <option value="advanced-e-commerce">Advanced E Commerce</option>
+                                    <option value="advanced-ml-project">Advanced Ml Project</option>
+                                    <option value="advanced-power-bi-dashboard">Advanced Power Bi Dashboard</option>
+                                    <option value="ai-business-automation">Ai Business Automation</option>
+                                    <option value="ai-chatbot">Ai Chatbot</option>
+                                    <option value="ai-ml-custom-solution">Ai Ml Custom Solution</option>
+                                    <option value="ai-ml-solutions">Ai Ml Solutions</option>
+                                    <option value="ai-powered-website">Ai Powered Website</option>
+                                    <option value="airag-knowledge-assistant">Airag Knowledge Assistant</option>
+                                    <option value="ai-web-application">Ai Web Application</option>
+                                    <option value="audit-accounting">Audit Accounting</option>
+                                    <option value="auditing">Auditing</option>
+                                    <option value="auditing-assurance">Auditing Assurance</option>
+                                    <option value="business-contactenquiry-forms">Business Contactenquiry Forms</option>
+                                    <option value="businessdata-analytics">Businessdata Analytics</option>
+                                    <option value="-analytics"> Analytics</option>
+                                    <option value="corporate-audit-accounting">Corporate Audit Accounting</option>
+                                    <option value="custom-dataai-software">Custom Dataai Software</option>
+                                    <option value="custom-saasweb-platform">Custom Saasweb Platform</option>
+                                    <option value="custom-web-application">Custom Web Application</option>
+                                    <option value="cybersecurity">Cybersecurity</option>
+                                    <option value="data-analytics-bi">Data Analytics Bi</option>
+                                    <option value="data-science">Data Science</option>
+                                    <option value="dynamic-business-website">Dynamic Business Website</option>
+                                    <option value="e-commerce-website">E Commerce Website</option>
+                                    <option value="excel-automation">Excel Automation</option>
+                                    <option value="excel-data-analysis">Excel Data Analysis</option>
+                                    <option value="excel-data-cleaning">Excel Data Cleaning</option>
+                                    <option value="finance-accounting">Finance Accounting</option>
+                                    <option value="financial-analytics">Financial Analytics</option>
+                                    <option value="full-stack-development">Full Stack Development</option>
+                                    <option value="graphic-design">Graphic Design</option>
+                                    <option value="hr-analytics">Hr Analytics</option>
+                                    <option value="machine-learning-model">Machine Learning Model</option>
+                                    <option value="ml-api-deployment">Ml Api Deployment</option>
+                                    <option value="power-bi-dashboard">Power Bi Dashboard</option>
+                                    <option value="predictive-analytics">Predictive Analytics</option>
+                                    <option value="product-development">Product Development</option>
+                                    <option value="python-data-analysis">Python Data Analysis</option>
+                                    <option value="python-sql-analytics">Python Sql Analytics</option>
+                                    <option value="saas-ai-solutions">Saas Ai Solutions</option>
+                                    <option value="sales-analytics">Sales Analytics</option>
+                                    <option value="software-development">Software Development</option>
+                                    <option value="sql-data-analysis">Sql Data Analysis</option>
+                                    <option value="ui-ux-design">Ui Ux Design</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="global-enquiry-row">
+                            <div class="global-enquiry-field">
+                                <label for="ge-location">Company Website (optional)</label>
+                                <input type="text" id="ge-location" name="location"
+                                    placeholder="https://www.yourcompany.com" class="global-enquiry-input" />
+                            </div>
+                            <div class="global-enquiry-field">
+                                <label for="ge-area">Estimated Budget (optional)</label>
+                                <input type="text" id="ge-area" name="area" placeholder="e.g. $5k-$10k, Flexible"
+                                    class="global-enquiry-input" />
+                            </div>
+                        </div>
+                        <div class="global-enquiry-field">
+                            <label for="ge-message">Project Description &amp; Requirements</label>
+                            <textarea id="ge-message" name="message" rows="4" required
+                                placeholder="Describe what you want to build: business goals, specific software requirements, timeline, or any questions for our engineering team..."
+                                class="global-enquiry-textarea"></textarea>
+                        </div>
+                        <input type="text" name="honeypot" class="enquiry-honeypot"
+                            style="position:absolute; left:-9999px; opacity:0; pointer-events:none;" tabindex="-1"
+                            autocomplete="off" />
+                        <div class="global-enquiry-actions">
+                            <button type="submit" class="global-enquiry-submit-btn">Send Project Enquiry
+                                &rarr;</button>
+                        </div>
+                        <div class="global-enquiry-error" style="display: none;"></div>
+                    </form>
+                    <div class="global-enquiry-success" style="display: none;">
+                        <div class="service-enquiry-success-icon">&#10003;</div>
+                        <h4>Enquiry Received Successfully!</h4>
+                        <p>Thanks &mdash; we've received your project details and sent you a confirmation email. Our
+                            senior engineering consultants will review your scope and get in touch within 24 hours.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="cta-contact-info"
+                    style="margin-top: 50px; display: flex; flex-direction: row; flex-wrap: wrap; gap: 32px; justify-content: center; align-items: center;">
+                    <a href="mailto:omengineeringconsultants06@gmail.com"
+                        style="color: #fff; text-decoration: none; font-size: 1rem; display: flex; align-items: center; gap: 8px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold-accent)"
+                            stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                            </path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        omengineeringconsultants06@gmail.com
+                    </a>
+                    <a href="tel:+918310160257"
+                        style="color: #fff; text-decoration: none; font-size: 1rem; display: flex; align-items: center; gap: 8px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold-accent)"
+                            stroke-width="2">
+                            <path
+                                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                            </path>
+                        </svg>
+                        +91 831 016 0257
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>OM Innoventures & Build AI technologies</h3>
+                    <p>&amp; ENGINEERING CONSULTANTS</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#capabilities">Capabilities</a></li>
+                        <li><a href="#industries">Industries</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#cta">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Projects</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Engineering</h4>
+                    <ul>
+                        <li><a href="#">Architecture</a></li>
+                        <li><a href="#">Structural</a></li>
+                        <li><a href="#">Planning</a></li>
+                        <li><a href="#">3D Design</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 OM Innoventures & Build AI technologies. All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ENTRY POINT -->
+    <script type="module" src="./src/main.js?v=36"></script>
+    <script type="module" src="./src/hillProject3D.js?v=5"></script>
+    <script src="./src/interiorDesigns.js?v=1"></script>
+    <script src="./js/animation.js"></script>
+    <script type="module">
+        import { renderPublishedProjects } from "./src/projectsRenderer.js";
+        import { initServiceImageMotion } from "./src/serviceImageMotion.js?v=10";
+        document.addEventListener('DOMContentLoaded', () => {
+            renderPublishedProjects('publishedProjectsContainer');
+            initServiceImageMotion();
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof renderInteriorDesigns === 'function') {
+                renderInteriorDesigns('homepage-interior-gallery-container', true);
+            }
+        });
+    </script>
+
+    <!-- Safety fallback: Guarantees page visibility if WebGL or external CDN script stalls -->
+    <script id="om-splash-safety-fallback">
+        setTimeout(function () {
+            var hp = document.getElementById("homepage-content");
+            if (hp && (window.getComputedStyle(hp).opacity === "0" || window.getComputedStyle(hp).visibility === "hidden")) {
+                hp.style.opacity = "1";
+                hp.style.visibility = "visible";
+                var nav = document.getElementById("navbar");
+                if (nav) { nav.style.opacity = "1"; nav.style.visibility = "visible"; }
+                document.body.style.overflowY = "auto";
+                document.body.style.overflowX = "hidden";
+            }
+        }, 6000);
+    </script>
+    <script type="module" src="src/servicesReveal.js"></script>
+    <script type="module">
+        import { initMotion, initImageLoaders } from './js/motion.js';
+        document.addEventListener('DOMContentLoaded', () => {
+            // Slight delay to ensure GSAP and layout are ready
+            setTimeout(() => {
+                initImageLoaders();
+                initMotion();
+            }, 100);
+        });
+    </script>
+</body>
+
+</html>
