@@ -1,51 +1,56 @@
 {
-  "version": 2,
-  "builds": [
+  "rewrites": [
     {
-      "src": "api/index.py",
-      "use": "@vercel/python"
+      "source": "/api/(.*)",
+      "destination": "/api/index.py"
     },
     {
-      "src": "frontend/**",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "api/index.py"
+      "source": "/docs",
+      "destination": "/api/index.py"
     },
     {
-      "src": "/docs",
-      "dest": "api/index.py"
+      "source": "/openapi.json",
+      "destination": "/api/index.py"
     },
     {
-      "src": "/openapi.json",
-      "dest": "api/index.py"
+      "source": "/login",
+      "destination": "/frontend/login.html"
     },
     {
-      "src": "/services/(.*)/?",
-      "dest": "frontend/services/$1/index.html"
+      "source": "/signup",
+      "destination": "/frontend/signup.html"
     },
     {
-      "src": "/login",
-      "dest": "frontend/login.html"
+      "source": "/my-requests",
+      "destination": "/frontend/my-requests.html"
     },
     {
-      "src": "/signup",
-      "dest": "frontend/signup.html"
+      "source": "/technical-documents",
+      "destination": "/frontend/technical-documents.html"
     },
     {
-      "src": "/my-requests",
-      "dest": "frontend/my-requests.html"
+      "source": "/documents",
+      "destination": "/frontend/documents.html"
     },
     {
-      "src": "/technical-documents",
-      "dest": "frontend/technical-documents.html"
+      "source": "/services/:slug",
+      "destination": "/frontend/services/:slug/index.html"
     },
     {
-      "src": "/(.*)",
-      "dest": "frontend/$1"
+      "source": "/services/:slug/",
+      "destination": "/frontend/services/:slug/index.html"
+    },
+    {
+      "source": "/services/:slug/:file*",
+      "destination": "/frontend/services/:slug/:file*"
+    },
+    {
+      "source": "/",
+      "destination": "/frontend/index.html"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/frontend/:path*"
     }
   ]
 }
