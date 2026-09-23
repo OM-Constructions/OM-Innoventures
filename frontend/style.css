@@ -347,7 +347,7 @@ NAVBAR
     height: 100vh;
     background: rgba(7, 21, 47, 0.4);
     backdrop-filter: blur(4px);
-    z-index: 1050;
+    z-index: 990;
     opacity: 0;
     transition: opacity 0.3s ease;
 }
@@ -1095,43 +1095,6 @@ SERVICES SECTION
     transform: translateX(3px);
 }
 
-/* Dark Section Adaptation */
-#services-ai .service-card.compact-card {
-    background: #0d1b3e;
-    border-color: rgba(255, 255, 255, 0.08);
-    border-left: 4px solid transparent;
-}
-
-#services-ai .service-card.compact-card:hover,
-#services-ai .service-card.compact-card.is-active {
-    background: #11234f;
-    border-left-color: var(--gold-accent) !important;
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(201, 151, 34, 0.15);
-}
-
-#services-ai .service-card .service-price-block {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(201, 151, 34, 0.3);
-}
-
-#services-ai .service-card-top .service-title {
-    color: #ffffff;
-}
-
-#services-ai .service-card .price-value {
-    color: var(--gold-accent);
-}
-
-#services-ai .service-card-body .service-desc {
-    color: rgba(255, 255, 255, 0.72);
-}
-
-#services-ai .service-tag {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.85);
-}
-
 .service-card-body .service-desc {
     color: #52606d;
     font-size: 0.85rem;
@@ -1232,46 +1195,6 @@ SERVICES SECTION
 .service-card.compact-card:hover .service-cta-btn svg {
     transform: translateX(3px);
 }
-
-/* Dark Section Adaptation */
-#services-ai .service-card.compact-card {
-    background: #0d1b3e;
-    border-color: rgba(255, 255, 255, 0.09);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-#services-ai .service-card.compact-card:hover {
-    background: #11234f;
-    border-color: var(--gold-accent);
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(201, 151, 34, 0.2);
-}
-
-#services-ai .service-card-top .service-title {
-    color: #ffffff;
-}
-
-#services-ai .service-card-body .service-desc {
-    color: rgba(255, 255, 255, 0.72);
-}
-
-#services-ai .service-tag {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.85);
-}
-
-#services-ai .service-card-body .service-card-footer {
-    border-top-color: rgba(255, 255, 255, 0.1);
-}
-
-#services-ai .service-card-body .price-label {
-    color: rgba(255, 255, 255, 0.5);
-}
-
-#services-ai .service-card-body .price-value {
-    color: var(--gold-accent);
-}
-
 
 /* 
 ==================================================

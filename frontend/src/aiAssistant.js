@@ -29,7 +29,7 @@ export function initAIAssistant() {
         <!-- Floating Action Button -->
         <button class="om-ai-launcher" id="om-ai-launcher" aria-label="Open Atlas Assistant">
             <div class="om-ai-launcher-icon">
-                <img src="${atlasAvatarPath}" alt="Atlas Avatar" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                <img src="${atlasAvatarPath}" alt="Atlas" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 24 24\\' fill=\\'%2307152F\\'><circle cx=\\'12\\' cy=\\'12\\' r=\\'11\\' fill=\\'%2307152F\\' stroke=\\'%23C99722\\' stroke-width=\\'1.5\\'/><path d=\\'M12 7a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0v-2a4 4 0 0 1 4-4z\\' fill=\\'%23ffffff\\'/><circle cx=\\'10\\' cy=\\'11\\' r=\\'1\\' fill=\\'%2307152F\\'/><circle cx=\\'14\\' cy=\\'11\\' r=\\'1\\' fill=\\'%2307152F\\'/></svg>';" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
             </div>
             <span class="om-ai-status-indicator" title="Atlas Active"></span>
         </button>
@@ -40,7 +40,7 @@ export function initAIAssistant() {
             <div class="om-ai-header">
                 <div class="om-ai-header-info">
                     <div class="om-ai-avatar">
-                        <img src="${atlasAvatarPath}" alt="Atlas" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                        <img src="${atlasAvatarPath}" alt="Atlas" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 24 24\\' fill=\\'%2307152F\\'><circle cx=\\'12\\' cy=\\'12\\' r=\\'11\\' fill=\\'%2307152F\\' stroke=\\'%23C99722\\' stroke-width=\\'1.5\\'/><path d=\\'M12 7a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0v-2a4 4 0 0 1 4-4z\\' fill=\\'%23ffffff\\'/><circle cx=\\'10\\' cy=\\'11\\' r=\\'1\\' fill=\\'%2307152F\\'/><circle cx=\\'14\\' cy=\\'11\\' r=\\'1\\' fill=\\'%2307152F\\'/></svg>';" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
                     </div>
                     <div>
                         <div class="om-ai-title">Atlas</div>
@@ -589,7 +589,7 @@ Choose a topic below or type any question!`,
 
         msg.innerHTML = `
             <div class="om-ai-msg-avatar">
-                <img src="${atlasAvatarPath}" alt="Atlas" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                <img src="${atlasAvatarPath}" alt="Atlas" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 24 24\\' fill=\\'%2307152F\\'><circle cx=\\'12\\' cy=\\'12\\' r=\\'11\\' fill=\\'%2307152F\\' stroke=\\'%23C99722\\' stroke-width=\\'1.5\\'/><path d=\\'M12 7a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0v-2a4 4 0 0 1 4-4z\\' fill=\\'%23ffffff\\'/><circle cx=\\'10\\' cy=\\'11\\' r=\\'1\\' fill=\\'%2307152F\\'/><circle cx=\\'14\\' cy=\\'11\\' r=\\'1\\' fill=\\'%2307152F\\'/></svg>';" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
             </div>
             <div class="om-ai-msg-body">
                 ${responseObj.title ? `<div class="om-ai-msg-heading">${escapeHTML(responseObj.title)}</div>` : ''}
