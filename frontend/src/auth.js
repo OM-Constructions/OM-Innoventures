@@ -70,7 +70,7 @@ export async function signup({ name, email, password }) {
   const res = await fetch(`${API_BASE_URL}/api/v1/auth/signup`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    credentials: "include",
+
     body: JSON.stringify({ name, email, password }),
   });
   const data = await res.json().catch(() => ({}));
@@ -100,7 +100,7 @@ export async function login({ email, password }) {
   const res = await fetch(`${API_BASE_URL}/api/v1/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    credentials: "include",
+
     body: JSON.stringify({ email, password }),
   });
   const data = await res.json().catch(() => ({}));
@@ -141,7 +141,7 @@ export async function verifyOtp(arg1, arg2) {
   const res = await fetch(`${API_BASE_URL}/api/v1/auth/verify-otp`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    credentials: "include",
+
     body: JSON.stringify({ email: email ? email.trim() : "", otp: otp ? otp.trim() : "" }),
   });
   const data = await res.json().catch(() => ({}));
@@ -199,7 +199,7 @@ export async function logout() {
   const res = await fetch(`${API_BASE_URL}/api/v1/auth/logout`, {
     method: "POST",
     headers,
-    credentials: "include",
+
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
@@ -288,7 +288,7 @@ export async function getCurrentUser() {
     const res = await fetchWithTimeout(`${API_BASE_URL}/api/v1/auth/me`, {
       method: "GET",
       headers: getAuthHeaders(),
-      credentials: "include",
+  
     }, 20000);
     
     if (!res.ok) {
@@ -327,7 +327,7 @@ export async function getMySubmissions() {
   const res = await fetchWithTimeout(`${API_BASE_URL}/api/v1/me/requests`, {
     method: "GET",
     headers: getAuthHeaders(),
-    credentials: "include",
+
   }, 20000);
   
   const data = await res.json().catch(() => ({}));
@@ -345,7 +345,7 @@ export async function getMyProjects() {
   const res = await fetchWithTimeout(`${API_BASE_URL}/api/v1/projects/me`, {
     method: "GET",
     headers: getAuthHeaders(),
-    credentials: "include",
+
   }, 20000);
 
   const data = await res.json().catch(() => ([]));
@@ -365,7 +365,7 @@ export async function submitProjectReview(projectId, { rating, review_text }) {
   const res = await fetch(`${API_BASE_URL}/api/v1/projects/${projectId}/review`, {
     method: "POST",
     headers: getAuthHeaders({ "Content-Type": "application/json" }),
-    credentials: "include",
+
     body: JSON.stringify({ rating: Number(rating), review_text }),
   });
 

@@ -12,8 +12,11 @@ from app.routes import auth, contact, me, assistant, projects, reviews
 from app.services.service_catalog import get_all_services, get_service, SERVICES
 from app.services.company_info import COMPANY_INFO
 
-# Initialize database tables
-Base.metadata.create_all(bind=engine)
+# Initialize database tables gracefully
+try:
+    Base.metadata.create_all(bind=engine)
+except Exception as e:
+    print(f"[Warning] Database tables initialization error: {e}")
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -24,13 +27,25 @@ app = FastAPI(
 )
 
 # CORS Configuration
+origins = [
+    "https://om-innoventures.vercel.app",
+    "https://om-innoventures-sori.vercel.app",
+    "http://localhost:5173",
+    "http://localhost:8000",
+    "http://localhost:3000",
+    "http://127.0.0.1:5500",
+    "http://127.0.0.1:8000",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 # API Routers (mounted on /api and /api/v1 for compatibility)
 for prefix in [settings.API_V1_STR, "/api/v1"]:

@@ -44,7 +44,6 @@ export async function submitEnquiry({ name, email, phone, location, serviceSlug,
   const res = await fetch(`${API_BASE_URL}/api/v1/contact`, {
     method: "POST",
     headers,
-    credentials: "include",
     body: JSON.stringify({
       name,
       email,
@@ -57,6 +56,7 @@ export async function submitEnquiry({ name, email, phone, location, serviceSlug,
       honeypot: honeypot || "",
     }),
   });
+
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
     const errorMsg = formatApiErrorMessage(data, `Failed to submit enquiry (${res.status})`);
