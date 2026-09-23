@@ -3,9 +3,14 @@
  * Centralized API Module
  */
 
-const API_BASE = window.location.origin.includes(':8000') || window.location.origin.includes('localhost')
+const API_BASE = (typeof window !== 'undefined' && (
+    window.location.hostname === 'localhost' ||
+    window.location.hostname === '127.0.0.1' ||
+    window.location.hostname === '0.0.0.0'
+  ))
   ? '/api'
-  : '/api';
+  : 'https://om-innoventures-sori.vercel.app/api';
+
 
 const Api = {
   getToken() {
