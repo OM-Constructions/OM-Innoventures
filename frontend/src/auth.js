@@ -7,7 +7,7 @@ export const API_BASE_URL =
     window.location.hostname.endsWith(".local")
   ) && (window.location.port !== "" && window.location.port !== "80" && window.location.port !== "443" && window.location.port !== "8000")
     ? `${window.location.protocol}//${window.location.hostname === "0.0.0.0" ? "localhost" : window.location.hostname}:8000`
-    : (typeof window !== "undefined" ? window.location.origin : "https://om-innoventures.vercel.app"));
+    : "https://om-innoventures-sori.vercel.app");
 
 
 export function getStoredToken() {

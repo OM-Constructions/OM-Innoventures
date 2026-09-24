@@ -9,7 +9,7 @@ const API_BASE = (typeof window !== 'undefined' && (
     window.location.hostname === '0.0.0.0'
   ) && (window.location.port !== "" && window.location.port !== "80" && window.location.port !== "443" && window.location.port !== "8000"))
   ? `${window.location.protocol}//${window.location.hostname}:8000/api`
-  : (typeof window !== 'undefined' ? `${window.location.origin}/api` : '/api');
+  : 'https://om-innoventures-sori.vercel.app/api';
 
 
 const Api = {
