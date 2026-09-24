@@ -574,26 +574,107 @@ section {
 /* Saffron Section Title Highlight Box & Motion */
 h2.section-title {
     font-family: var(--font-heading);
-    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-size: clamp(2.3rem, 4.2vw, 3.4rem);
     color: var(--navy-primary);
     margin: 12px 0 16px 0;
-    line-height: 1.18;
+    line-height: 1.15;
     font-weight: 900;
     letter-spacing: -0.025em;
     position: relative;
-    display: inline-block;
-    background: #FFFFFF;
-    border: 2px solid rgba(255, 106, 0, 0.45);
-    border-left: 6px solid #FF6A00;
-    padding: 10px 24px;
-    border-radius: 12px;
-    box-shadow: 0 6px 24px rgba(255, 106, 0, 0.16), 0 1px 3px rgba(0, 0, 0, 0.04);
-    overflow: hidden;
-    animation: saffronHeadingGlow 4s ease-in-out infinite;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+    display: block;
+    text-align: left;
 }
 
-h2.section-title::before {
+h2.section-title::after {
+    content: '';
+    display: block;
+    width: 54px;
+    height: 3.5px;
+    background: linear-gradient(90deg, #FF6A00 0%, #FFA149 60%, transparent 100%);
+    border-radius: 3px;
+    margin-top: 14px;
+    margin-left: 0;
+}
+
+.section-dark h2.section-title {
+    color: #ffffff;
+}
+
+.section-dark h2.section-title::after {
+    background: linear-gradient(90deg, #FFA149 0%, #FFCC80 60%, transparent 100%);
+    box-shadow: 0 0 10px rgba(255, 161, 73, 0.4);
+}
+
+#cta h2.section-title {
+    text-align: center;
+}
+
+#cta h2.section-title::after {
+    margin: 14px auto 0 auto;
+}
+
+/* 
+==================================================
+ SERVICES SECTIONS - SAFFRON HIGHLIGHT BOX (LEFT-ALIGNED ONLY)
+================================================== 
+*/
+#services .container,
+#services-website .container,
+#services-data .container,
+#services-ai .container,
+#services-accounting .container,
+[id^="services"] .container {
+    text-align: left;
+}
+
+#services .eyebrow,
+#services-website .eyebrow,
+#services-data .eyebrow,
+#services-ai .eyebrow,
+#services-accounting .eyebrow,
+[id^="services"] .eyebrow {
+    display: inline-flex;
+    margin-bottom: 12px;
+    margin-left: 0;
+}
+
+#services h2.section-title,
+#services-website h2.section-title,
+#services-data h2.section-title,
+#services-ai h2.section-title,
+#services-accounting h2.section-title,
+[id^="services"] h2.section-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    color: var(--navy-primary);
+    margin: 0 0 16px 0;
+    line-height: 1.2;
+    font-weight: 900;
+    letter-spacing: -0.025em;
+    position: relative;
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
+    background: #FFFFFF;
+    border: 2px solid #FF6A00;
+    border-left: 6px solid #FF6A00;
+    padding: 10px 22px;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(255, 106, 0, 0.16), 0 1px 3px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    animation: saffronHeadingGlow 4s ease-in-out infinite;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#services h2.section-title::before,
+#services-website h2.section-title::before,
+#services-data h2.section-title::before,
+#services-ai h2.section-title::before,
+#services-accounting h2.section-title::before,
+[id^="services"] h2.section-title::before {
     content: '';
     position: absolute;
     top: 0;
@@ -603,8 +684,8 @@ h2.section-title::before {
     background: linear-gradient(
         90deg,
         transparent 0%,
-        rgba(255, 106, 0, 0.12) 40%,
-        rgba(255, 255, 255, 0.75) 60%,
+        rgba(255, 106, 0, 0.14) 40%,
+        rgba(255, 255, 255, 0.8) 60%,
         transparent 100%
     );
     animation: saffronHeadingShimmer 4.5s infinite ease-in-out;
@@ -612,61 +693,44 @@ h2.section-title::before {
     border-radius: inherit;
 }
 
-h2.section-title::after {
+#services h2.section-title::after,
+#services-website h2.section-title::after,
+#services-data h2.section-title::after,
+#services-ai h2.section-title::after,
+#services-accounting h2.section-title::after,
+[id^="services"] h2.section-title::after {
     content: '';
     display: block;
-    width: 62px;
-    height: 4px;
-    background: linear-gradient(90deg, #FF6A00 0%, #FF9432 50%, #FFB74D 85%, transparent 100%);
-    box-shadow: 0 0 14px rgba(255, 106, 0, 0.55), 0 2px 4px rgba(255, 106, 0, 0.3);
-    border-radius: 4px;
+    width: 58px;
+    height: 3.5px;
+    background: linear-gradient(90deg, #FF6A00 0%, #FFA149 60%, transparent 100%);
+    box-shadow: 0 0 12px rgba(255, 106, 0, 0.55);
+    border-radius: 3px;
     margin-top: 10px;
+    margin-left: 0;
     animation: saffronBarPulse 3.5s ease-in-out infinite;
-    transition: width 0.3s ease, box-shadow 0.3s ease;
+    transition: width 0.3s ease;
 }
 
-h2.section-title:hover {
+#services h2.section-title:hover,
+#services-website h2.section-title:hover,
+#services-data h2.section-title:hover,
+#services-ai h2.section-title:hover,
+#services-accounting h2.section-title:hover,
+[id^="services"] h2.section-title:hover {
     transform: translateY(-2px);
-    border-color: #FF6A00;
-    box-shadow: 0 12px 34px rgba(255, 106, 0, 0.28), 0 0 16px rgba(255, 106, 0, 0.25);
+    box-shadow: 0 10px 28px rgba(255, 106, 0, 0.28);
 }
 
-h2.section-title:hover::after {
-    width: 86px;
-    box-shadow: 0 0 22px rgba(255, 106, 0, 0.85);
-}
-
-.section-dark h2.section-title {
-    background: rgba(255, 106, 0, 0.12);
-    border: 2px solid rgba(255, 138, 48, 0.6);
-    border-left: 6px solid #FFA149;
-    color: #ffffff;
-    box-shadow: 0 8px 30px rgba(255, 106, 0, 0.28), inset 0 0 14px rgba(255, 106, 0, 0.12);
-    backdrop-filter: blur(14px);
-}
-
-.section-dark h2.section-title::before {
-    background: linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(255, 161, 73, 0.2) 40%,
-        rgba(255, 255, 255, 0.35) 60%,
-        transparent 100%
-    );
-}
-
-.section-dark h2.section-title::after {
-    background: linear-gradient(90deg, #FF7B1A 0%, #FFA756 50%, #FFE0B2 85%, transparent 100%);
-    box-shadow: 0 0 16px rgba(255, 123, 26, 0.7);
-}
-
-#cta h2.section-title {
-    display: inline-block;
-    margin: 12px auto 16px auto;
-}
-
-#cta h2.section-title::after {
-    margin: 10px auto 0 auto;
+#services p.section-subtitle,
+#services-website p.section-subtitle,
+#services-data p.section-subtitle,
+#services-ai p.section-subtitle,
+#services-accounting p.section-subtitle,
+[id^="services"] p.section-subtitle {
+    text-align: left;
+    margin: 14px 0 36px 0;
+    margin-left: 0;
 }
 
 /* Saffron Highlight Box & Utilities */
