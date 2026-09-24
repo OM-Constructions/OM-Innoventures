@@ -46,6 +46,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+from fastapi.responses import JSONResponse
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request, exc):
+    print(f"[Unhandled Exception on {request.url.path}]: {exc}")
+    return JSONResponse(
+        status_code=500,
+        content={"detail": f"Internal server error: {str(exc)}", "success": False}
+    )
+
+
 
 # API Routers (mounted on /api and /api/v1 for compatibility)
 for prefix in [settings.API_V1_STR, "/api/v1"]:

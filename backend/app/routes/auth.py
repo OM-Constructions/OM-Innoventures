@@ -107,44 +107,65 @@ def get_current_admin(
 @router.post("/signup", response_model=SignupResponse, status_code=status.HTTP_200_OK)
 def signup(user_in: UserCreate, db: Session = Depends(get_db)):
     email_clean = user_in.email.lower().strip()
-    existing = db.query(User).filter(User.email == email_clean).first()
+    
+    try:
+        existing = db.query(User).filter(User.email == email_clean).first()
+    except Exception as db_err:
+        print(f"[Database Error in Signup query]: {db_err}")
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Database connection error. Please verify the Supabase Connection Pooler configuration."
+        )
     
     otp = generate_six_digit_otp()
     otp_hash = hash_password(otp)
     otp_expires = datetime.datetime.utcnow() + datetime.timedelta(minutes=10)
 
-    if existing:
-        if existing.is_verified:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="An account with this email already exists."
+    try:
+        if existing:
+            if existing.is_verified:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="An account with this email already exists."
+                )
+            # Existing unverified user — update credentials and refresh OTP
+            existing.name = user_in.name.strip()
+            existing.password_hash = hash_password(user_in.password)
+            if user_in.phone:
+                existing.phone = user_in.phone.strip()
+            existing.otp_hash = otp_hash
+            existing.otp_expires_at = otp_expires
+            existing.otp_attempts = 0
+            db.commit()
+            db.refresh(existing)
+            user_name = existing.name
+        else:
+            user = User(
+                name=user_in.name.strip(),
+                email=email_clean,
+                phone=user_in.phone.strip() if user_in.phone else None,
+                password_hash=hash_password(user_in.password),
+                is_verified=False,
+                otp_hash=otp_hash,
+                otp_expires_at=otp_expires,
+                otp_attempts=0,
             )
-        # Existing unverified user — update credentials and refresh OTP
-        existing.name = user_in.name.strip()
-        existing.password_hash = hash_password(user_in.password)
-        if user_in.phone:
-            existing.phone = user_in.phone.strip()
-        existing.otp_hash = otp_hash
-        existing.otp_expires_at = otp_expires
-        existing.otp_attempts = 0
-        db.commit()
-        db.refresh(existing)
-        user_name = existing.name
-    else:
-        user = User(
-            name=user_in.name.strip(),
-            email=email_clean,
-            phone=user_in.phone.strip() if user_in.phone else None,
-            password_hash=hash_password(user_in.password),
-            is_verified=False,
-            otp_hash=otp_hash,
-            otp_expires_at=otp_expires,
-            otp_attempts=0,
+            db.add(user)
+            db.commit()
+            db.refresh(user)
+            user_name = user.name
+    except HTTPException:
+        raise
+    except Exception as db_err:
+        print(f"[Database Error in Signup commit]: {db_err}")
+        try:
+            db.rollback()
+        except Exception:
+            pass
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=f"Database write error: {str(db_err)}"
         )
-        db.add(user)
-        db.commit()
-        db.refresh(user)
-        user_name = user.name
 
     # Send OTP Email to client
     send_otp_email(to_email=email_clean, name=user_name, otp=otp)
