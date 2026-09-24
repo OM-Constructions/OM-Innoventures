@@ -7,6 +7,10 @@ db_url = settings.DATABASE_URL
 if db_url.startswith("postgres://"):
     db_url = db_url.replace("postgres://", "postgresql://", 1)
 
+# Enforce new Supabase DB if old reference or empty string is passed
+if not db_url or "hdgctawsrilkldnwfhkn" in db_url:
+    db_url = "postgresql://postgres:OM_INNOVENTURES@db.opkkzocaievvswpwszfr.supabase.co:5432/postgres"
+
 # SQLite needs check_same_thread=False
 connect_args = {}
 if db_url.startswith("sqlite"):

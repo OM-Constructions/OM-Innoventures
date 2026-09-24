@@ -13,8 +13,11 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 days
     ADMIN_SECRET_KEY: str = os.getenv("ADMIN_SECRET_KEY", "om-admin-secure-key-2025")
     
-    # Database
-    DATABASE_URL: str = os.getenv("DATABASE_URL", "sqlite:///./om_innoventures.db")
+    # Database (Supabase PostgreSQL)
+    DATABASE_URL: str = os.getenv(
+        "DATABASE_URL",
+        "postgresql://postgres:OM_INNOVENTURES@db.opkkzocaievvswpwszfr.supabase.co:5432/postgres"
+    )
     
     # Email notifications (Dedicated Tech Inbox)
     COMPANY_NOTIFICATION_EMAIL: str = os.getenv("COMPANY_NOTIFICATION_EMAIL", "ominnoventuresaitech@gmail.com")
