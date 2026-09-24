@@ -571,37 +571,88 @@ section {
     color: #FFB775;
 }
 
+/* Saffron Section Title Highlight Box & Motion */
 h2.section-title {
     font-family: var(--font-heading);
-    font-size: clamp(2.3rem, 4.2vw, 3.4rem);
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
     color: var(--navy-primary);
     margin: 12px 0 16px 0;
-    line-height: 1.15;
+    line-height: 1.18;
     font-weight: 900;
     letter-spacing: -0.025em;
     position: relative;
+    display: inline-block;
+    background: #FFFFFF;
+    border: 2px solid rgba(255, 106, 0, 0.45);
+    border-left: 6px solid #FF6A00;
+    padding: 10px 24px;
+    border-radius: 12px;
+    box-shadow: 0 6px 24px rgba(255, 106, 0, 0.16), 0 1px 3px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    animation: saffronHeadingGlow 4s ease-in-out infinite;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+}
+
+h2.section-title::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 106, 0, 0.12) 40%,
+        rgba(255, 255, 255, 0.75) 60%,
+        transparent 100%
+    );
+    animation: saffronHeadingShimmer 4.5s infinite ease-in-out;
+    pointer-events: none;
+    border-radius: inherit;
 }
 
 h2.section-title::after {
     content: '';
     display: block;
-    width: 58px;
+    width: 62px;
     height: 4px;
     background: linear-gradient(90deg, #FF6A00 0%, #FF9432 50%, #FFB74D 85%, transparent 100%);
     box-shadow: 0 0 14px rgba(255, 106, 0, 0.55), 0 2px 4px rgba(255, 106, 0, 0.3);
     border-radius: 4px;
-    margin-top: 14px;
+    margin-top: 10px;
     animation: saffronBarPulse 3.5s ease-in-out infinite;
     transition: width 0.3s ease, box-shadow 0.3s ease;
 }
 
+h2.section-title:hover {
+    transform: translateY(-2px);
+    border-color: #FF6A00;
+    box-shadow: 0 12px 34px rgba(255, 106, 0, 0.28), 0 0 16px rgba(255, 106, 0, 0.25);
+}
+
 h2.section-title:hover::after {
-    width: 82px;
+    width: 86px;
     box-shadow: 0 0 22px rgba(255, 106, 0, 0.85);
 }
 
 .section-dark h2.section-title {
+    background: rgba(255, 106, 0, 0.12);
+    border: 2px solid rgba(255, 138, 48, 0.6);
+    border-left: 6px solid #FFA149;
     color: #ffffff;
+    box-shadow: 0 8px 30px rgba(255, 106, 0, 0.28), inset 0 0 14px rgba(255, 106, 0, 0.12);
+    backdrop-filter: blur(14px);
+}
+
+.section-dark h2.section-title::before {
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 161, 73, 0.2) 40%,
+        rgba(255, 255, 255, 0.35) 60%,
+        transparent 100%
+    );
 }
 
 .section-dark h2.section-title::after {
@@ -609,8 +660,13 @@ h2.section-title:hover::after {
     box-shadow: 0 0 16px rgba(255, 123, 26, 0.7);
 }
 
+#cta h2.section-title {
+    display: inline-block;
+    margin: 12px auto 16px auto;
+}
+
 #cta h2.section-title::after {
-    margin: 14px auto 0 auto;
+    margin: 10px auto 0 auto;
 }
 
 /* Saffron Highlight Box & Utilities */
