@@ -190,12 +190,24 @@ NAVBAR
 }
 
 .nav-brand {
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 1.25rem;
-    color: var(--navy-primary);
+    display: inline-flex;
+    align-items: center;
     text-decoration: none;
-    letter-spacing: 0.02em;
+    padding: 4px 0;
+}
+
+.brand-logo-img {
+    height: 48px;
+    max-height: 52px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+}
+
+.nav-brand:hover .brand-logo-img {
+    transform: scale(1.04);
+    filter: drop-shadow(0 2px 8px rgba(201, 151, 34, 0.25));
 }
 
 .nav-brand .brand-long {
