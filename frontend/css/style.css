@@ -42,6 +42,20 @@ body {
     overflow: hidden;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--navy-primary);
+}
+
+.section-dark h1,
+.section-dark h2,
+.section-dark h3,
+.section-dark h4,
+.section-dark h5,
+.section-dark h6 {
+    color: #ffffff;
+}
+
 /* 
 ==================================================
 GLOBAL CONTAINER
@@ -498,123 +512,55 @@ section {
     background-color: var(--bg-secondary);
 }
 
-@keyframes pulseGlow {
-    0% { transform: scale(0.85); opacity: 0.75; box-shadow: 0 0 6px #E5A91A; }
-    100% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 12px #E5A91A, 0 0 22px rgba(229, 169, 26, 0.9); }
-}
-
 .eyebrow {
     font-family: var(--font-heading);
-    font-size: 0.85rem;
-    font-weight: 800;
-    letter-spacing: 0.14em;
-    color: #9E740E;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--gold-accent);
     text-transform: uppercase;
     margin-bottom: 16px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: linear-gradient(135deg, rgba(201, 151, 34, 0.18) 0%, rgba(201, 151, 34, 0.06) 100%);
-    border: 1.5px solid rgba(201, 151, 34, 0.45);
-    padding: 7px 18px;
-    border-radius: 9999px;
-    box-shadow: 0 4px 18px rgba(201, 151, 34, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-}
-
-.eyebrow::before {
-    content: '';
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #E5A91A;
-    box-shadow: 0 0 8px #E5A91A, 0 0 16px rgba(229, 169, 26, 0.7);
-    animation: pulseGlow 1.8s infinite alternate ease-in-out;
+    display: block;
 }
 
 .section-dark .eyebrow {
-    background: linear-gradient(135deg, rgba(201, 151, 34, 0.28) 0%, rgba(201, 151, 34, 0.12) 100%);
-    border-color: rgba(241, 196, 15, 0.55);
-    color: #F1C40F;
-    box-shadow: 0 4px 20px rgba(241, 196, 15, 0.25);
+    color: var(--gold-accent);
 }
 
 h2.section-title {
     font-family: var(--font-heading);
-    font-size: clamp(2.4rem, 4.4vw, 3.6rem);
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
     color: var(--navy-primary);
-    margin: 14px 0 16px 0;
+    margin: 0 0 20px 0;
     line-height: 1.15;
-    font-weight: 900;
-    letter-spacing: -0.025em;
-    position: relative;
-}
-
-h2.section-title::after {
-    content: '';
-    display: block;
-    width: 64px;
-    height: 4px;
-    background: linear-gradient(90deg, #D4AC0D 0%, #F39C12 60%, transparent 100%);
-    border-radius: 4px;
-    margin-top: 14px;
-    box-shadow: 0 0 12px rgba(201, 151, 34, 0.45);
+    font-weight: 800;
+    letter-spacing: -0.02em;
 }
 
 .section-dark h2.section-title {
-    color: #fff;
+    color: #ffffff;
 }
 
-.section-dark h2.section-title::after {
-    background: linear-gradient(90deg, #F1C40F 0%, #FFE272 60%, transparent 100%);
-    box-shadow: 0 0 14px rgba(241, 196, 15, 0.6);
-}
-
-.highlight-gold {
-    background: linear-gradient(135deg, #F39C12 0%, #D4AC0D 35%, #B7950B 75%, #F5B041 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: inline-block;
-    font-weight: 900;
-    filter: drop-shadow(0 2px 8px rgba(201, 151, 34, 0.3));
-    position: relative;
-}
-
-.highlight-gold::after {
-    content: '';
-    position: absolute;
-    bottom: 3px;
-    left: 0;
-    width: 100%;
-    height: 8px;
-    background: linear-gradient(90deg, rgba(201, 151, 34, 0.28) 0%, rgba(243, 156, 18, 0.15) 100%);
-    border-radius: 4px;
-    z-index: -1;
-}
-
-.section-dark .highlight-gold {
-    background: linear-gradient(135deg, #FFF099 0%, #F1C40F 40%, #DFB135 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 2px 12px rgba(241, 196, 15, 0.4));
-}
-
-.section-dark .highlight-gold::after {
-    background: linear-gradient(90deg, rgba(241, 196, 15, 0.35) 0%, rgba(255, 226, 114, 0.18) 100%);
+.highlight-gold,
+.intelligent {
+    color: inherit;
+    background: none;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: inherit;
+    filter: none;
 }
 
 p.section-subtitle {
-    font-size: 1.15rem;
+    font-size: 1.125rem;
     color: var(--text-muted);
-    max-width: 660px;
-    margin: 16px 0 44px 0;
-    line-height: 1.65;
+    max-width: 650px;
+    margin: 0 0 44px 0;
+    line-height: 1.6;
     position: relative;
 }
 
 .section-dark p.section-subtitle {
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.82);
 }
 
 /* 
@@ -655,7 +601,7 @@ HERO SECTION
 }
 
 .hero-content h1 .intelligent {
-    color: var(--gold-accent);
+    color: inherit;
 }
 
 .hero-content p {
