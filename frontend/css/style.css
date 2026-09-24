@@ -514,31 +514,75 @@ section {
 
 .eyebrow {
     font-family: var(--font-heading);
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     font-weight: 700;
-    letter-spacing: 0.12em;
-    color: var(--gold-accent);
+    letter-spacing: 0.14em;
+    color: #9E740E;
     text-transform: uppercase;
-    margin-bottom: 16px;
-    display: block;
+    margin-bottom: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(201, 151, 34, 0.10);
+    border: 1px solid rgba(201, 151, 34, 0.3);
+    padding: 6px 14px;
+    border-radius: 999px;
+    backdrop-filter: blur(8px);
+}
+
+.eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #C99722;
+    box-shadow: 0 0 8px #C99722;
 }
 
 .section-dark .eyebrow {
-    color: var(--gold-accent);
+    background: rgba(201, 151, 34, 0.18);
+    border-color: rgba(241, 196, 15, 0.45);
+    color: #F1C40F;
+}
+
+.section-dark .eyebrow::before {
+    background: #F1C40F;
+    box-shadow: 0 0 8px #F1C40F;
 }
 
 h2.section-title {
     font-family: var(--font-heading);
-    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    font-size: clamp(2.3rem, 4.2vw, 3.4rem);
     color: var(--navy-primary);
-    margin: 0 0 20px 0;
+    margin: 12px 0 16px 0;
     line-height: 1.15;
-    font-weight: 800;
-    letter-spacing: -0.02em;
+    font-weight: 900;
+    letter-spacing: -0.025em;
+    position: relative;
+}
+
+h2.section-title::after {
+    content: '';
+    display: block;
+    width: 54px;
+    height: 3.5px;
+    background: linear-gradient(90deg, #C99722 0%, #E5A91A 60%, transparent 100%);
+    border-radius: 3px;
+    margin-top: 14px;
 }
 
 .section-dark h2.section-title {
     color: #ffffff;
+}
+
+.section-dark h2.section-title::after {
+    background: linear-gradient(90deg, #F1C40F 0%, #FFE272 60%, transparent 100%);
+    box-shadow: 0 0 10px rgba(241, 196, 15, 0.4);
+}
+
+#cta h2.section-title::after {
+    margin: 14px auto 0 auto;
 }
 
 .highlight-gold,
@@ -554,7 +598,7 @@ p.section-subtitle {
     font-size: 1.125rem;
     color: var(--text-muted);
     max-width: 650px;
-    margin: 0 0 44px 0;
+    margin: 14px 0 44px 0;
     line-height: 1.6;
     position: relative;
 }
