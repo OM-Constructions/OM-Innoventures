@@ -72,13 +72,25 @@ for prefix in [settings.API_V1_STR, "/api/v1"]:
 
     @app.get(f"{prefix}/health", include_in_schema=(prefix == settings.API_V1_STR))
     def health_check_fn():
-        return {"status": "ok", "project": settings.PROJECT_NAME, "version": settings.PROJECT_VERSION}
-def health_check():
-    return {
-        "status": "healthy",
-        "service": settings.PROJECT_NAME,
-        "version": settings.PROJECT_VERSION
-    }
+        db_status = "unknown"
+        db_error = None
+        try:
+            with engine.connect() as conn:
+                from sqlalchemy import text
+                res = conn.execute(text("SELECT 1")).scalar()
+                db_status = "connected" if res == 1 else "unexpected_result"
+        except Exception as e:
+            db_status = "error"
+            db_error = str(e)
+        return {
+            "status": "ok",
+            "project": settings.PROJECT_NAME,
+            "version": settings.PROJECT_VERSION,
+            "database": {
+                "status": db_status,
+                "error": db_error
+            }
+        }
 
 
 # Mount Frontend static files for unified local development
