@@ -304,7 +304,7 @@ export function initGlobalEnquiryForm() {
             }
         } catch (err) {
             console.error('Global enquiry submission error:', err);
-            errorEl.textContent = err.message || 'Failed to send your enquiry. Please check your network connection or email us directly at omengineeringconsultants06@gmail.com.';
+            errorEl.textContent = err.message || 'Failed to send your enquiry. Please check your network connection or email us directly at ominnoventuresaitech@gmail.com.';
             errorEl.style.display = 'block';
             if (submitBtn) {
                 submitBtn.disabled = false;

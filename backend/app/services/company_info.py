@@ -28,7 +28,7 @@ COMPANY_INFO: Dict[str, Any] = {
     },
     "phone": "8310160257",
     "phone_display": "+91 83101 60257",
-    "email": "ominnoventures.ai@gmail.com",
+    "email": "ominnoventuresaitech@gmail.com",
     "stats": [
         {"value": "100%", "label": "Cloud & AI Native"},
         {"value": "11+", "label": "Enterprise Offerings"},

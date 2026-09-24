@@ -106,7 +106,7 @@ TEMPLATE = """<!DOCTYPE html>
                 </p>
                 <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
                     <a href="/#cta?service={slug}" class="btn-primary btn-gold">Initiate Project Consultation &rarr;</a>
-                    <a href="mailto:ominnoventures.ai@gmail.com" class="btn-outline">Email Project Brief</a>
+                    <a href="mailto:ominnoventuresaitech@gmail.com" class="btn-outline">Email Project Brief</a>
                 </div>
             </div>
         </div>

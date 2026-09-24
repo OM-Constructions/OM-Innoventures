@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     DATABASE_URL: str = os.getenv("DATABASE_URL", "sqlite:///./om_innoventures.db")
     
     # Email notifications (Dedicated Tech Inbox)
-    COMPANY_NOTIFICATION_EMAIL: str = os.getenv("COMPANY_NOTIFICATION_EMAIL", "ominnoventures.ai@gmail.com")
+    COMPANY_NOTIFICATION_EMAIL: str = os.getenv("COMPANY_NOTIFICATION_EMAIL", "ominnoventuresaitech@gmail.com")
     SMTP_HOST: str = os.getenv("SMTP_HOST", "")
     SMTP_PORT: int = int(os.getenv("SMTP_PORT", "587"))
     SMTP_USER: str = os.getenv("SMTP_USER", "")
