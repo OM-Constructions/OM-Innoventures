@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     # Database (Supabase PostgreSQL Pooler)
     DATABASE_URL: str = os.getenv(
         "DATABASE_URL",
-        "postgresql://postgres.opkkzocaievvswpwszfr:OM_INNOVENTURES@aws-0-ap-south-1.pooler.supabase.com:5432/postgres"
+        "postgresql://postgres.opkkzocaievvswpwszfr:OM_INNOVENTURES@aws-0-ap-northeast-1.pooler.supabase.com:5432/postgres"
     )
     
     # Email notifications (Dedicated Tech Inbox)

@@ -8,8 +8,8 @@ if db_url.startswith("postgres://"):
     db_url = db_url.replace("postgres://", "postgresql://", 1)
 
 # Enforce new Supabase DB if old reference or empty string is passed
-if not db_url or "hdgctawsrilkldnwfhkn" in db_url or "db.opkkzocaievvswpwszfr.supabase.co" in db_url:
-    db_url = "postgresql://postgres.opkkzocaievvswpwszfr:OM_INNOVENTURES@aws-0-ap-south-1.pooler.supabase.com:5432/postgres"
+if not db_url or "hdgctawsrilkldnwfhkn" in db_url or "db.opkkzocaievvswpwszfr.supabase.co" in db_url or "aws-0-ap-south-1" in db_url:
+    db_url = "postgresql://postgres.opkkzocaievvswpwszfr:OM_INNOVENTURES@aws-0-ap-northeast-1.pooler.supabase.com:5432/postgres"
 
 from sqlalchemy.pool import NullPool
 
