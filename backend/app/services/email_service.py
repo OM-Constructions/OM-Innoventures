@@ -80,11 +80,15 @@ def notify_new_enquiry(enquiry: Dict[str, Any]) -> Dict[str, bool]:
     client_name = enquiry.get("name", "Client")
     client_email = enquiry.get("email")
 
-    # 1. Company Notification
+    # 1. Company Notification (Always dispatch to ominnoventuresaitech@gmail.com)
+    target_email = settings.COMPANY_NOTIFICATION_EMAIL
+    if not target_email or "omengineeringconsultants" in target_email or "ominnoventures.ai@" in target_email:
+        target_email = "ominnoventuresaitech@gmail.com"
+
     company_subject = f"New enquiry: {service_name} - {client_name}"
     company_html = build_company_notification_html(enquiry, service_info)
     company_sent = send_html_email(
-        to_email=settings.COMPANY_NOTIFICATION_EMAIL,
+        to_email=target_email,
         subject=company_subject,
         html_body=company_html,
     )
