@@ -4,11 +4,10 @@ export const API_BASE_URL =
     window.location.hostname === "localhost" ||
     window.location.hostname === "127.0.0.1" ||
     window.location.hostname === "0.0.0.0" ||
-    window.location.hostname.endsWith(".local") ||
-    (window.location.port !== "" && window.location.port !== "80" && window.location.port !== "443" && window.location.port !== "8000")
-  )
+    window.location.hostname.endsWith(".local")
+  ) && (window.location.port !== "" && window.location.port !== "80" && window.location.port !== "443" && window.location.port !== "8000")
     ? `${window.location.protocol}//${window.location.hostname === "0.0.0.0" ? "localhost" : window.location.hostname}:8000`
-    : "https://om-innoventures-sori.vercel.app");
+    : (typeof window !== "undefined" ? window.location.origin : "https://om-innoventures.vercel.app"));
 
 
 export function formatApiErrorMessage(data, fallback = "An unexpected error occurred") {
