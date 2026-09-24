@@ -13,10 +13,10 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 days
     ADMIN_SECRET_KEY: str = os.getenv("ADMIN_SECRET_KEY", "om-admin-secure-key-2025")
     
-    # Database (Supabase PostgreSQL)
+    # Database (Supabase PostgreSQL Pooler)
     DATABASE_URL: str = os.getenv(
         "DATABASE_URL",
-        "postgresql://postgres:OM_INNOVENTURES@db.opkkzocaievvswpwszfr.supabase.co:5432/postgres"
+        "postgresql://postgres.opkkzocaievvswpwszfr:OM_INNOVENTURES@aws-0-ap-south-1.pooler.supabase.com:5432/postgres"
     )
     
     # Email notifications (Dedicated Tech Inbox)
