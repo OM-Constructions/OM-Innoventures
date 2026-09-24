@@ -34,29 +34,33 @@ def send_html_email(to_email: str, subject: str, html_body: str) -> bool:
         return True
 
     try:
+        clean_user = (settings.SMTP_USER or "").strip()
+        clean_pass = (settings.SMTP_PASSWORD or "").strip().replace(" ", "")
+        from_header = f"{settings.SMTP_FROM_NAME} <{clean_user}>"
+
         msg = MIMEMultipart("alternative")
         msg["Subject"] = subject
-        msg["From"] = f"{settings.SMTP_FROM_NAME} <{settings.SMTP_USER}>"
+        msg["From"] = from_header
         msg["To"] = to_email
         msg.attach(MIMEText(html_body, "html"))
 
         # Gmail SSL port 465 vs STARTTLS port 587
         if settings.SMTP_PORT == 465:
             with smtplib.SMTP_SSL(settings.SMTP_HOST, settings.SMTP_PORT, timeout=12) as server:
-                server.login(settings.SMTP_USER, settings.SMTP_PASSWORD)
-                server.sendmail(settings.SMTP_USER, to_email, msg.as_string())
+                server.login(clean_user, clean_pass)
+                server.sendmail(clean_user, to_email, msg.as_string())
         else:
             with smtplib.SMTP(settings.SMTP_HOST, settings.SMTP_PORT, timeout=12) as server:
                 server.ehlo()
                 server.starttls()
-                server.login(settings.SMTP_USER, settings.SMTP_PASSWORD)
-                server.sendmail(settings.SMTP_USER, to_email, msg.as_string())
+                server.login(clean_user, clean_pass)
+                server.sendmail(clean_user, to_email, msg.as_string())
             
         logger.info(f"Email successfully sent to {to_email}")
         return True
     except Exception as e:
         logger.error(f"Failed to dispatch email to {to_email}: {e}")
-        print(f"[EMAIL SEND ERROR] {e}")
+        print(f"[EMAIL SEND ERROR] Failed sending to {to_email}: {e}")
         return False
 
 
