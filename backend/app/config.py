@@ -21,10 +21,10 @@ class Settings(BaseSettings):
     
     # Email notifications (Dedicated Tech Inbox)
     COMPANY_NOTIFICATION_EMAIL: str = os.getenv("COMPANY_NOTIFICATION_EMAIL", "ominnoventuresaitech@gmail.com")
-    SMTP_HOST: str = os.getenv("SMTP_HOST", "")
-    SMTP_PORT: int = int(os.getenv("SMTP_PORT", "587"))
-    SMTP_USER: str = os.getenv("SMTP_USER", "")
-    SMTP_PASSWORD: str = os.getenv("SMTP_PASSWORD", "")
+    SMTP_HOST: str = os.getenv("SMTP_HOST", "smtp.gmail.com")
+    SMTP_PORT: int = int(os.getenv("SMTP_PORT", "465"))
+    SMTP_USER: str = os.getenv("SMTP_USER", "ominnoventuresaitech@gmail.com")
+    SMTP_PASSWORD: str = os.getenv("SMTP_PASSWORD", "frouqedyeunttvxl")
     SMTP_FROM_NAME: str = os.getenv("SMTP_FROM_NAME", "OM Innoventures & Build AI Technologies")
     
     #  cross-link
