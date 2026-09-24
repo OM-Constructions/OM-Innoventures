@@ -36,6 +36,8 @@ def submit_enquiry(
     else:
         client_ip = request.client.host if request.client else "127.0.0.1"
 
+    email_clean = enquiry_in.email.lower().strip()
+
     # Attempt to determine user_id and persist enquiry to database
     enquiry_id = str(uuid.uuid4())
     db_saved = False
