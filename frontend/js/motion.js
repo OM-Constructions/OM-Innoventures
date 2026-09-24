@@ -43,7 +43,7 @@ export function initMotion() {
     });
 
     // 2. Section Headers Auto-Reveal (eyebrow, section-title, section-subtitle)
-    const sectionHeaders = document.querySelectorAll('section .container > .eyebrow, section .container > .section-title, section .container > .section-subtitle, .section-header');
+    const sectionHeaders = document.querySelectorAll('section .container > .eyebrow, section .container > .section-title, section .container > .section-subtitle, .section-header, .saas-eyebrow, .saas-title, .saas-subtitle');
     sectionHeaders.forEach((header) => {
         if (!header.classList.contains('reveal-up') && !header.classList.contains('no-anim')) {
             gsap.fromTo(header,
@@ -57,7 +57,8 @@ export function initMotion() {
                     y: 0,
                     opacity: 1,
                     duration: 0.8,
-                    ease: "power3.out"
+                    ease: "power3.out",
+                    clearProps: "transform,opacity"
                 }
             );
         }
